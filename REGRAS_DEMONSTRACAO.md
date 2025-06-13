@@ -33,7 +33,7 @@ instrutores/
   +--"js8jta8amjsd81":
     +--"nome": "John"
     +--"email": "john@email.com"
-    +--"fone": "John"
+    +--"fone": "2112345678"
 
 alunos/
   +--"8fmamasddu3dsa":
@@ -45,4 +45,9 @@ audiencias/
   +--""
   
 inscricoes/
-  +--""
+  +--"8fmamasddu3dsa":
+    +--DRFO:
+      +--8fmamasddu3dsa
+      
+  +--"1234":
+    +--DRFO
