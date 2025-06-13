@@ -51,6 +51,9 @@ class Audiencia {
     if (aula == null || aula == undefined)
       throw new ModelError("É necessário indicar qual é a Aula da audiência!");
     if (aula.constructor.name !== "Aula") throw new ModelError("Aula Inválida");
+    // Qual é o curso da aula?
+    // Quais inscrições o aluno tem?
+    // Pegar todos os cursos vinculados àquele aluno
   }
 
   static validarAluno(aluno) {

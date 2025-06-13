@@ -1,7 +1,7 @@
 import ModelError from "./error/ModelError.js";
 
 class Inscricao {
-  constructor(curso, aluno, dataMatr) {
+  constructor(dataMatr, curso, aluno) {
     this.setCurso(curso);
     this.setAluno(aluno);
     this.setDataMatr(dataMatr);
