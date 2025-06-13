@@ -48,7 +48,7 @@ class Inscricao {
   static validarAluno(aluno) {
     if (aluno == null || aluno == undefined)
       throw new ModelError("É necessário indicar qual é o Aluno da inscrição!");
-    if (aluno.constructor.name !== "Aluno")
+    if (aluno.constructor.name !== "Aluno" && aluno.constructor.name !== "Promise")
       throw new ModelError("Aluno Inválido");
   }
 
@@ -56,7 +56,7 @@ class Inscricao {
     if (curso == null || curso == undefined)
       throw new ModelError("É necessário indicar qual é o Curso da inscrição!");
     if (curso.constructor.name !== "Curso")
-      throw new ModelError("Curso Inválido");
+      throw new ModelError("Curso Inválido" && curso.constructor.name !== "Promise");
   }
 }
 

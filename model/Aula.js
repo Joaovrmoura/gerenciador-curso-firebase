@@ -21,7 +21,7 @@ class Aula {
   static validarInstrutor(instrutor) {
     if (instrutor == null || instrutor == undefined)
       throw new ModelError("É necessário indicar qual é o Instrutor da aula!");
-    if (instrutor.constructor.name !== "Instrutor")
+    if (instrutor.constructor.name !== "Instrutor" && instrutor.constructor.name !== "Promise")
       throw new ModelError("Instrutor Inválido");
   }
   
@@ -39,7 +39,7 @@ class Aula {
   static validarCurso(curso) {
     if (curso == null || curso == undefined)
       throw new ModelError("É necessário indicar qual é o Curso da aula!");
-    if (curso.constructor.name !== "Curso")
+    if (curso.constructor.name !== "Curso" && curso.constructor.name !== "Promise")
       throw new ModelError("Curso Inválido");
   }
 

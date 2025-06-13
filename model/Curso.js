@@ -27,7 +27,7 @@ class Curso {
   static validarInstrutor(instrutor) {
     if (instrutor == null || instrutor == undefined)
       throw new ModelError("É necessário indicar qual é o Instrutor do curso!");
-    if (instrutor.constructor.name !== "Instrutor")
+    if (instrutor.constructor.name !== "Instrutor" && instrutor.constructor.name !== "Promise")
       throw new ModelError("Instrutor Inválido");
   }
 
