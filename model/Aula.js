@@ -1,7 +1,8 @@
 import ModelError from "./error/ModelError.js";
 
 class Aula {
-  constructor(conteudo, curso, instrutor) {
+  constructor(numOrdem, conteudo, curso, instrutor) {
+    this.setNumOrdem(numOrdem);
     this.setConteudo(conteudo);
     this.setCurso(curso);
     this.setInstrutor(instrutor);
@@ -62,6 +63,23 @@ class Aula {
       throw new ModelError("O conteúdo deve ser uma string!");
     if (conteudo.trim() === "")
       throw new ModelError("O conteúdo não pode ser vazio!");
+  }
+  
+  // Getter para conteudo
+  getNumOrdem() {
+    return this.numOrdem;
+  }
+
+  // Setter para conteudo com validação
+  setNumOrdem(numOrdem) {
+    Aula.validarNumOrdem(numOrdem);
+    this.numOrdem = numOrdem;
+  }
+  
+  static validarNumOrdem(numOrdem) {
+    if(numOrdem == null || numOrdem == undefined || numOrdem < 0) {
+      throw new ModelError("O número de ordem deve ser um valor valido!");
+    }
   }
 }
 
