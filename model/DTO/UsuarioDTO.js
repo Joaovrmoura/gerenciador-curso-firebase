@@ -1,8 +1,8 @@
 class UsuarioDTO {
-  constructor(usr) {
-    this.email = usr.getEmail();
-    this.uid = usr.getUid();
-    this.funcao = usr.getFuncao();
+  constructor(usuario) {
+    this.email = usuario.getEmail();
+    this.uid = usuario.getUid();
+    this.funcao = usuario.getFuncao();
   }
 
   getEmail() {

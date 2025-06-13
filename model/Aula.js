@@ -1,9 +1,28 @@
 import ModelError from "./error/ModelError.js";
 
 class Aula {
-  constructor(conteudo, curso) {
+  constructor(conteudo, curso, instrutor) {
     this.setConteudo(conteudo);
     this.setCurso(curso);
+    this.setInstrutor(instrutor);
+  }
+  
+  async getInstrutor() {
+    if (this.instrutor.constructor.name === "Promise")
+      this.instrutor = await this.instrutor;
+    return this.instrutor;
+  }
+
+  setInstrutor(instrutor) {
+    Aula.validarInstrutor(instrutor);
+    this.instrutor = instrutor;
+  }
+  
+  static validarInstrutor(instrutor) {
+    if (instrutor == null || instrutor == undefined)
+      throw new ModelError("É necessário indicar qual é o Instrutor da aula!");
+    if (instrutor.constructor.name !== "Instrutor")
+      throw new ModelError("Instrutor Inválido");
   }
   
   async getCurso() {
@@ -15,6 +34,13 @@ class Aula {
   setCurso(curso) {
     Aula.validarCurso(curso);
     this.curso = curso;
+  }
+  
+  static validarCurso(curso) {
+    if (curso == null || curso == undefined)
+      throw new ModelError("É necessário indicar qual é o Curso da aula!");
+    if (curso.constructor.name !== "Curso")
+      throw new ModelError("Curso Inválido");
   }
 
   // Getter para conteudo

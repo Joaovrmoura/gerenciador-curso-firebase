@@ -14,10 +14,6 @@ class CursoDTO {
     this.#categoria = curso.getCategoria();
     this.#instrutor = curso.getInstrutor();
   }
-  
-  getSigla() {
-    return this.#instrutor;
-  }
 
   getSigla() {
     return this.#sigla;
@@ -37,5 +33,9 @@ class CursoDTO {
 
   getCategoria() {
     return this.#categoria;
+  }
+  
+  async getInstrutor() {
+    return await this.#instrutor;
   }
 }
