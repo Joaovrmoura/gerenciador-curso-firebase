@@ -21,4 +21,7 @@ aulas/
       +--"conteudo": "blablabla"
 
 instrutor/
-  +--"$uid"
+  +--"$uid":
+    +--"nome": "John"
+    +--"email": "john@email.com"
+    +--"fone": "John"
