@@ -4,6 +4,7 @@ class CursoDTO {
   #descricao;
   #cargaHoraria;
   #categoria;
+  #instrutor;
 
   constructor(curso) {
     this.#sigla = curso.getSigla();
@@ -11,6 +12,11 @@ class CursoDTO {
     this.#descricao = curso.getDescricao();
     this.#cargaHoraria = curso.getCargaHoraria();
     this.#categoria = curso.getCategoria();
+    this.#instrutor = curso.getInstrutor();
+  }
+  
+  getSigla() {
+    return this.#instrutor;
   }
 
   getSigla() {

@@ -7,7 +7,6 @@ class Inscricao {
     this.setDataMatr(dataMatr);
   }
 
-  // Getter e Setter para curso
   async getCurso() {
     if (this.curso.constructor.name === "Promise")
       this.curso = await this.curso;
@@ -19,7 +18,6 @@ class Inscricao {
     this.curso = curso;
   }
 
-  // Getter e Setter para aluno
   async getAluno() {
     if (this.aluno.constructor.name === "Promise")
       this.aluno = await this.aluno;
@@ -31,7 +29,6 @@ class Inscricao {
     this.aluno = aluno;
   }
 
-  // Getter e Setter para dataMatr
   getDataMatr() {
     return this.dataMatr;
   }

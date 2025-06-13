@@ -1,8 +1,20 @@
 import ModelError from "./error/ModelError.js";
 
 class Aula {
-  constructor(conteudo) {
+  constructor(conteudo, curso) {
     this.setConteudo(conteudo);
+    this.setCurso(curso);
+  }
+  
+  async getCurso() {
+    if (this.curso.constructor.name === "Promise")
+      this.curso = await this.curso;
+    return this.curso;
+  }
+
+  setCurso(curso) {
+    Aula.validarCurso(curso);
+    this.curso = curso;
   }
 
   // Getter para conteudo

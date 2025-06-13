@@ -1,13 +1,34 @@
 import { CursoCategoria } from "../enum/CursoCategoria.js";
 import ModelError from "./error/ModelError.js";
 
+// passar instrutor
+
 class Curso {
-  constructor(sigla, nome, descricao, cargaHoraria, categoria) {
+  constructor(sigla, nome, descricao, cargaHoraria, categoria, instrutor) {
     this.setSigla(sigla);
     this.setNome(nome);
     this.setDescricao(descricao);
     this.setCargaHoraria(cargaHoraria);
     this.setCategoria(categoria);
+    this.setInstrutor(instrutor);
+  }
+  
+  async getInstrutor() {
+    if (this.instrutor.constructor.name === "Promise")
+      this.instrutor = await this.instrutor;
+    return this.instrutor;
+  }
+
+  setInstrutor(instrutor) {
+    Curso.validarInstrutor(instrutor);
+    this.instrutor = instrutor;
+  }
+  
+  static validarInstrutor(instrutor) {
+    if (instrutor == null || instrutor == undefined)
+      throw new ModelError("É necessário indicar qual é o Instrutor do curso!");
+    if (instrutor.constructor.name !== "Instrutor")
+      throw new ModelError("Instrutor Inválido");
   }
 
   // Getter e Setter para sigla
