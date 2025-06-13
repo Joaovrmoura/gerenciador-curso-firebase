@@ -46,8 +46,9 @@ audiencias/
   
 inscricoes/
   +--"8fmamasddu3dsa":
-    +--DRFO:
-      +--8fmamasddu3dsa
-      
+    +--"DRFO":
+      +--"8fmamasddu3dsa"
+      +--"DRFO"
+      +--"12/12/2024"
   +--"1234":
-    +--DRFO
+    +--"DRFO"
