@@ -1,3 +1,4 @@
+```js
 {
   "rules": {
       /*---- Leitura: dono do projeto no Firebase e usuários com função ADMIN ----*/
@@ -41,3 +42,4 @@
   }
 }
   
+```
