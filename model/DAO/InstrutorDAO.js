@@ -66,5 +66,29 @@ class InstrutorDAO {
     });
     return resultado;
   }
+                                
+  async alterar(instrutor) {
+    let connectionDB = await this.obterConexao();
+    let resultado = new Promise((resolve, reject) => {
+      let dbRefInstrutores = ref(connectionDB, "instrutores");
+      runTransaction(dbRefInstrutores, async instrutores => {
+        let daoUsuario = new UsuarioDAO();
+        let usr = await daoUsuario.obterUsuarioPeloEmail(instrutor.getEmail());
+        // let dbRefAlterarAluno = child(dbRefAlunos, aluno.getMatricula());
+        let dbRefAlterarAluno = child(dbRefAlunos, usr.uid);
+
+        let setPromise = set(dbRefAlterarAluno, aluno);
+        setPromise.then(
+          value => {
+            resolve(true);
+          },
+          erro => {
+            reject(erro);
+          }
+        );
+      });
+    });
+    return resultado;
+  }
 
 export default InstrutorDAO;
