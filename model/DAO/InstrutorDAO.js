@@ -75,9 +75,9 @@ class InstrutorDAO {
         let daoUsuario = new UsuarioDAO();
         let usr = await daoUsuario.obterUsuarioPeloEmail(instrutor.getEmail());
         // let dbRefAlterarAluno = child(dbRefAlunos, aluno.getMatricula());
-        let dbRefAlterarAluno = child(dbRefAlunos, usr.uid);
+        let dbRefAlterarInstrutor = child(dbRefInstrutores, usr.uid);
 
-        let setPromise = set(dbRefAlterarAluno, aluno);
+        let setPromise = set(dbRefAlterarInstrutor, instrutor);
         setPromise.then(
           value => {
             resolve(true);
