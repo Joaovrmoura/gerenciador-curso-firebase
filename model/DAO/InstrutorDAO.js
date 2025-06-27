@@ -49,7 +49,8 @@ class InstrutorDAO {
         let usr = await daoUsuario.obterUsuarioPeloEmail(instrutor.getEmail());
         if (usr !== undefined && usr !== null) {
           // O instrutor já foi cadastrado como um usuário do sistema
-          let dbRefNovoInstrutor = child(dbRefInstrutores, usr.uid); // /instrutores/$uid
+          let dbRefNovoInstrutor = ref(connectionDB, "instrutores/" + usr.uid); // /instrutores/$uid
+          // Guarda no ref definido acima o objeto 'instrutor' recebido por parâmetro
           let setPromise = set(dbRefNovoInstrutor, instrutor);
           setPromise.then(
             value => {
@@ -59,6 +60,8 @@ class InstrutorDAO {
               reject(erro);
             }
           );
+        } else {
+          reject("Esse instrutor ainda não foi cadastrado como usuário.");
         }
     });
     return resultado;
