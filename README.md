@@ -63,11 +63,11 @@ Regras atualidades do João:
                 }
             }
         },
-        "audiencia": {
-          "$uid": {
-              ".read" : "$uid === auth.uid && root.child('usuarios').child(auth.uid).child('funcao').val() === 'ALUNO'",
-          }
-        }
+       // "audiencia": {
+        //   "$uid": {
+        //       ".read" : "$uid === auth.uid && root.child('usuarios').child(auth.uid).child('funcao').val() === 'ALUNO'",
+        //   }
+        // }
     }
 }
 ```

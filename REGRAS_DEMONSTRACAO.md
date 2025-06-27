@@ -40,9 +40,6 @@ alunos/
     +--"nome": "Maria"
     +--"dataNasc": "12/10/2001"
     +--"email": "maria@exemplo.com"
-    
-audiencias/
-  +--""
   
 inscricoes/
   +--"8fmamasddu3dsa":

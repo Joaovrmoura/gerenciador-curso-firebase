@@ -84,9 +84,9 @@ class AlunoDAO {
         let dbRefNovoAluno;
         let daoUsuario = new UsuarioDAO();
         let usr = await daoUsuario.obterUsuarioPeloEmail(aluno.getEmail());
-        if (usr !== undefined && usr !== null)
+        if (usr !== undefined && usr !== null) {
           dbRefNovoAluno = child(dbRefAlunos, usr.uid);
-        // else dbRefNovoAluno = child(dbRefAlunos, aluno.getMatricula());
+        }
         let setPromise = set(dbRefNovoAluno, aluno);
         setPromise.then(
           value => {
