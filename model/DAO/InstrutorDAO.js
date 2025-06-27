@@ -45,22 +45,21 @@ class InstrutorDAO {
     let resultado = new Promise((resolve, reject) => {
       let dbRefInstrutores = ref(connectionDB, "instrutores");
       runTransaction(dbRefInstrutores, async instrutores => {
-        let dbRefNovoInstrutor;
         let daoUsuario = new UsuarioDAO();
-        let usr = await daoUsuario.obterUsuarioPeloEmail(aluno.getEmail());
-        if (usr !== undefined && usr !== null)
-          dbRefNovoInstrutor = child(dbRefInstrutor, usr.uid);
-        // else dbRefNovoAluno = child(dbRefAlunos, aluno.getMatricula());
-        let setPromise = set(dbRefNovoInstrutor, instrutor);
-        setPromise.then(
-          value => {
-            resolve(true);
-          },
-          erro => {
-            reject(erro);
-          }
-        );
-      });
+        let usr = await daoUsuario.obterUsuarioPeloEmail(instrutor.getEmail());
+        if (usr !== undefined && usr !== null) {
+          // O instrutor já foi cadastrado como um usuário do sistema
+          let dbRefNovoInstrutor = child(dbRefInstrutores, usr.uid); // /instrutores/$uid
+          let setPromise = set(dbRefNovoInstrutor, instrutor);
+          setPromise.then(
+            value => {
+              resolve(true);
+            },
+            erro => {
+              reject(erro);
+            }
+          );
+        }
     });
     return resultado;
   }
