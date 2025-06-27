@@ -55,7 +55,7 @@ class AlunoDAO {
       });
     });
   }
-
+ 
   async obterAlunos() {
     let connectionDB = await this.obterConexao();
 

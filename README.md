@@ -4,7 +4,7 @@ Base do projeto do Alessandro:
 
 Regras atualidades do João:
 
-```js
+```json
 {
     "rules": {
         /*****
