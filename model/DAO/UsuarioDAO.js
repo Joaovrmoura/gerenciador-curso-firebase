@@ -1,3 +1,4 @@
+
 import {
   getDatabase,
   ref,
@@ -13,12 +14,13 @@ import {
   orderByKey,
   equalTo,
   push,
-} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+} from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js";
 import ModelError from "../error/ModelError.js";
 import Usuario from "../Usuario.js";
 import UsuarioDTO from "../DTO/UsuarioDTO.js";
 
-class UsuarioDAO {
+
+class DaoUsuario {
   static promessaConexao = null;
 
   constructor() {
@@ -26,8 +28,8 @@ class UsuarioDAO {
   }
 
   async obterConexao() {
-    if (UsuarioDAO.promessaConexao == null) {
-      UsuarioDAO.promessaConexao = new Promise(function (resolve, reject) {
+    if (DaoUsuario.promessaConexao == null) {
+      DaoUsuario.promessaConexao = new Promise(function (resolve, reject) {
         const db = getDatabase();
         if (db) resolve(db);
         else
@@ -36,7 +38,7 @@ class UsuarioDAO {
           );
       });
     }
-    return UsuarioDAO.promessaConexao;
+    return DaoUsuario.promessaConexao;
   }
 
   async obterUsuarioPeloUID(uid) {
@@ -63,8 +65,20 @@ class UsuarioDAO {
       let resultPromise = get(consulta);
       resultPromise.then(dataSnapshot => {
         let usr = dataSnapshot.val();
-        if (usr != null) resolve(new Usuario(usr.email, usr.uid, usr.funcao));
-        else resolve(null);
+        console.log(usr);
+        if (usr != null) {
+          const usrData = Object.values(usr)[0];
+          // Retorna um objeto com chave de UID e valor sendo outro objeto com as informações
+          // console.log("Usuário da consulta pelo e-mail: ");
+          // console.log(usr);
+          // console.log(Object.values(usr)[0]);
+          // console.log(usrData.email);
+          // console.log(usrData.uid);
+          // console.log(usrData.funcao);
+          resolve(new Usuario(usrData.email, usrData.uid, usrData.funcao));
+        } else {
+          resolve(null);
+        }
       });
     });
   }
@@ -143,4 +157,4 @@ class UsuarioDAO {
   }
 }
 
-export default UsuarioDAO;
+export default DaoUsuario;

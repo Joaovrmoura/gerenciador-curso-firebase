@@ -1,18 +1,5 @@
 import {
-  getDatabase,
-  ref,
-  query,
-  child,
-  get,
-  set,
-  remove,
-  runTransaction,
-  onValue,
-  onChildAdded,
-  orderByChild,
-  orderByKey,
-  equalTo,
-  push,
+  getDatabase
 } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
 
 import Audiencia from "../Audiencia.js";
@@ -38,5 +25,5 @@ class AudienciaDAO {
     }
     return AudienciaDAO.promessaConexao;
   }
-
+}
 export default AudienciaDAO;

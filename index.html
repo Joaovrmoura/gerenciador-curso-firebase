@@ -1,11 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Aplicação Mobile</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="./public/css/inicio.css">
 </head>
 <body>
-  Hello world!
+  <header>
+    Aplicação Mobile
+  </header>
+  
+  <main>
+    <nav>
+      <div id="divNavegar">
+        <button id="btAlunos" onclick="window.location.href = 'paginas/gerenciarCursos.html'">
+          <i class="fas fa-plus-circle"></i> Gerenciar Cursos
+        </button>
+        
+        <button id="btCursos" onclick="window.location.href = 'paginas/cursos.html'">
+          <i class="fas fa-users"></i> Gerenciar Usuários
+        </button>
+      </div>
+      
+      <div id="divComandos">
+        <p><i class="fas fa-info-circle"></i> Selecione uma das opções acima para começar</p>
+      </div>
+      
+      <div id="divAviso">
+        <p><i class="fas fa-exclamation-triangle"></i> Você precisa estar logado para acessar estas funcionalidades</p>
+      </div>
+    </nav>
+  </main>
+  
+  <footer>
+    Desenvolvimento Frontend (2025/1)
+  </footer>
+
+  <script>
+    // Simulação de um módulo JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+      // Adiciona efeito de clique nos botões
+      const buttons = document.querySelectorAll('button');
+      buttons.forEach(button => {
+        button.addEventListener('click', function() {
+          this.style.transform = 'scale(0.98)';
+          setTimeout(() => {
+            this.style.transform = '';
+          }, 150);
+        });
+      });
+    });
+  </script>
+  <script type="module" src="./controller/CtrlSessao.js"></script>
 </body>
 </html>

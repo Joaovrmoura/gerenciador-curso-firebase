@@ -13,7 +13,7 @@ import {
   orderByKey,
   equalTo,
   push,
-} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+} from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js";
 
 import Aula from "../Aula.js";
 import ModelError from "../error/ModelError.js";
@@ -38,5 +38,5 @@ class AulaDAO {
     }
     return AulaDAO.promessaConexao;
   }
-
+}
 export default AulaDAO;

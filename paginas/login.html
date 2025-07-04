@@ -1,0 +1,40 @@
+    <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/css/form.css">
+    <title>Login e Cadastro</title>
+</head>      
+     <body>
+        <div class="container">
+        <div class="form-header">
+            <h1 class="form-title" id="form-title">Entrar</h1>
+            <p class="form-subtitle" id="form-subtitle">Entre na sua conta para continuar</p>
+        </div>
+      <!-- Formulário de Login -->
+        <form id="login-form">
+            <div class="form-group">
+                <label for="login-email">Email</label>
+                <input type="tfEmail" id="tfEmail" name="tfEmail" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="tfSenha">Senha</label>
+                <input type="password" id="tfSenha" name="tfSenha" required>
+            </div>
+            
+            <button id="btEntrar" type="submit" class="submit-btn">Entrar</button>
+            
+            <div class="form-footer">
+                <a href="#">Esqueceu sua senha?</a>
+            </div>
+             <div class="form-footer">
+                <span>Ainda não tem uma conta? </span>
+                <a href="cadastro.html" id="switch-to-login">Faça Cadastro</a>
+            </div>
+        </form>
+        </div>
+    <script type="module" src="../controller/CtrlAutenticacao.js"></script>
+</body>
+</html>

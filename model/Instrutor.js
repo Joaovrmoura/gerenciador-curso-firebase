@@ -41,8 +41,7 @@ class Instrutor {
     if (telefone == null || telefone == "" || telefone == undefined)
       throw new ModelError("O Telefone do Instrutor não pode ser nulo!");
 
-    const padraoTelefone =
-      /^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$/;
+    const padraoTelefone = /^\(?\d{2}\)?[\s-]?\d{4,5}[\s-]?\d{4}$/;
     if (!padraoTelefone.test(telefone))
       throw new ModelError(
         "O Telefone do Instrutor não foi preenchido corretamente!"

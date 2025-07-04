@@ -13,7 +13,7 @@ import {
   orderByKey,
   equalTo,
   push,
-} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+} from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js";
 
 import Inscricao from "../Inscricao.js";
 import ModelError from "../error/ModelError.js";
@@ -38,5 +38,5 @@ class inscricaoDAO {
     }
     return inscricaoDAO.promessaConexao;
   }
-
+}
 export default inscricaoDAO;

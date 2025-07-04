@@ -1,4 +1,4 @@
-import ModelError from "./error/ModelError.js";
+import ModelError from "/model/ModelError.js";
 
 class Usuario {
   constructor(email, uid, funcao) {

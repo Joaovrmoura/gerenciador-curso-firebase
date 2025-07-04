@@ -6,14 +6,9 @@ import {
   child,
   get,
   set,
-  runTransaction,
-  onValue,
-  onChildAdded,
-  orderByKey,
-  equalTo,
-  remove,
-  push,
-} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+  runTransaction
+} from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js";
+
 import ModelError from "../error/ModelError.js";
 import Aluno from "../Aluno.js";
 import UsuarioDAO from "./UsuarioDAO.js";
@@ -55,7 +50,7 @@ class AlunoDAO {
       });
     });
   }
- 
+
   async obterAlunos() {
     let connectionDB = await this.obterConexao();
 
@@ -86,16 +81,18 @@ class AlunoDAO {
         let usr = await daoUsuario.obterUsuarioPeloEmail(aluno.getEmail());
         if (usr !== undefined && usr !== null) {
           dbRefNovoAluno = child(dbRefAlunos, usr.uid);
+          let setPromise = set(dbRefNovoAluno, aluno);
+          setPromise.then(
+            value => {
+              resolve(true);
+            },
+            erro => {
+              reject(erro);
+            }
+          );
+        } else {
+          reject("Esse aluno ainda não foi cadastrado como usuário.");
         }
-        let setPromise = set(dbRefNovoAluno, aluno);
-        setPromise.then(
-          value => {
-            resolve(true);
-          },
-          erro => {
-            reject(erro);
-          }
-        );
       });
     });
     return resultado;

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/css/form.css">
+    <title>Login e Cadastro</title>
+</head>
+<style>
+            .checkbox-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .checkbox-option {
+            position: relative;
+            flex: 1 1 calc(50% - 15px);
+            min-width: 180px;
+        }
+        
+        .checkbox-option input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+        
+        .checkbox-custom {
+            position: relative;
+            padding-left: 45px;
+            cursor: pointer;
+            display: block;
+            height: 100%;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px 15px 15px 50px;
+            transition: all 0.3s ease;
+        }
+        
+        .checkbox-custom:hover {
+            border-color: #3498db;
+            background-color: #f8f9ff;
+        }
+        
+        /* Criar o checkbox personalizado */
+        .checkmark {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            height: 24px;
+            width: 24px;
+            background-color: #f5f7fa;
+            border: 2px solid #3498db;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Estilo quando o checkbox está marcado */
+        .checkbox-option input:checked ~ .checkbox-custom .checkmark {
+            background-color: #3498db;
+            border-color: #3498db;
+        }
+        
+        /* Criar o indicador de check (escondido quando não selecionado) */
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 7px;
+            top: 3px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+        
+        /* Mostrar o indicador quando selecionado */
+        .checkbox-option input:checked ~ .checkbox-custom .checkmark:after {
+            display: block;
+        }
+        
+        .checkbox-label {
+            display: block;
+            font-weight: 500;
+            color: #2c3e50;
+            font-size: 1rem;
+            margin-bottom: 3px;
+        }
+        
+        .checkbox-description {
+            display: block;
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            line-height: 1.4;
+        }
+
+</style>
+<body>
+      <div class="container">
+        <div class="form-header">
+            <h1 class="form-title" id="form-title">Entrar</h1>
+            <p class="form-subtitle" id="form-subtitle">Entre na sua conta para continuar</p>
+        </div>
+
+        <div class="success-message" id="success-message"></div>
+        <div class="error-message" id="error-message"></div>
+
+        <!-- Formulário de Cadastro -->
+        <form id="signup-form" id="registerForm">
+            <div class="form-group">
+                <label for="tfNome">Nome Completo</label>
+                <input type="text" id="tfNome" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="tfEmail">Email</label>
+                <input type="email" id="tfEmail" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="tfSenha">Senha</label>
+                <input type="password" id="tfSenha" name="tfSenha" required minlength="6">
+            </div>
+
+            <div class="form-group">
+                <label for="tfTelefone">Telefone</label>
+                <input type="number" id="tfTelefone" name="tfTelefone" required minlength="6">
+            </div>
+
+            <div class="select-container">
+                <label for="cbFuncao" class="input-label">Função:</label>
+                <div class="custom-select">
+                    <select id="cbFuncao" class="input-field" name="perfil" required>
+                    <option value="" disabled selected>Selecione o perfil</option>
+                    <option value="ALUNO">Aluno</option>
+                    <option value="INSTRUTOR">Instrutor</option>
+                    </select>
+                    <span class="custom-arrow">▼</span>
+                </div>
+            </div>
+
+            <!-- Opção Instrutor -->
+            <div id="recaptcha-container"></div>
+            <button type="submit" id="btNovaConta" class="submit-btn">Criar Conta</button>
+            <!-- Opção Instrutor -->
+            
+            <!-- <div id="recaptcha-container"></div> -->
+
+            <div class="form-footer">
+                <span>Já tem uma conta? </span>
+                <a href="login.html" id="switch-to-login">Faça login</a>
+            </div>
+        </form>
+    </div>
+
+    <script type="module" src="../controller/CtrlNovaConta.js"></script>
+</body>
+</html>
