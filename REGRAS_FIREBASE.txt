@@ -1,3 +1,4 @@
+<<<<<<< HEAD:REGRAS_FIREBASE.txt
 	
 {
     "rules": {
@@ -76,3 +77,6 @@
         }
     }
 }
+=======
+
+>>>>>>> 40a454dfe08cc63f89959cb6b57105f44de93bfd:README.md
