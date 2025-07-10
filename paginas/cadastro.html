@@ -3,160 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../public/css/form.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Login e Cadastro</title>
-</head>
-<style>
-            .checkbox-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        
-        .checkbox-option {
-            position: relative;
-            flex: 1 1 calc(50% - 15px);
-            min-width: 180px;
-        }
-        
-        .checkbox-option input[type="checkbox"] {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-            height: 0;
-            width: 0;
-        }
-        
-        .checkbox-custom {
-            position: relative;
-            padding-left: 45px;
-            cursor: pointer;
-            display: block;
-            height: 100%;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 15px 15px 15px 50px;
-            transition: all 0.3s ease;
-        }
-        
-        .checkbox-custom:hover {
-            border-color: #3498db;
-            background-color: #f8f9ff;
-        }
-        
-        /* Criar o checkbox personalizado */
-        .checkmark {
-            position: absolute;
-            top: 50%;
-            left: 15px;
-            transform: translateY(-50%);
-            height: 24px;
-            width: 24px;
-            background-color: #f5f7fa;
-            border: 2px solid #3498db;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-        }
-        
-        /* Estilo quando o checkbox está marcado */
-        .checkbox-option input:checked ~ .checkbox-custom .checkmark {
-            background-color: #3498db;
-            border-color: #3498db;
-        }
-        
-        /* Criar o indicador de check (escondido quando não selecionado) */
-        .checkmark:after {
-            content: "";
-            position: absolute;
-            display: none;
-            left: 7px;
-            top: 3px;
-            width: 5px;
-            height: 10px;
-            border: solid white;
-            border-width: 0 3px 3px 0;
-            transform: rotate(45deg);
-        }
-        
-        /* Mostrar o indicador quando selecionado */
-        .checkbox-option input:checked ~ .checkbox-custom .checkmark:after {
-            display: block;
-        }
-        
-        .checkbox-label {
-            display: block;
-            font-weight: 500;
-            color: #2c3e50;
-            font-size: 1rem;
-            margin-bottom: 3px;
-        }
-        
-        .checkbox-description {
-            display: block;
-            font-size: 0.85rem;
-            color: #7f8c8d;
-            line-height: 1.4;
-        }
+</head>      
 
-</style>
-<body>
-      <div class="container">
-        <div class="form-header">
-            <h1 class="form-title" id="form-title">Entrar</h1>
-            <p class="form-subtitle" id="form-subtitle">Entre na sua conta para continuar</p>
-        </div>
+<body class="bg-gray-50">
 
-        <div class="success-message" id="success-message"></div>
-        <div class="error-message" id="error-message"></div>
+  <div class="flex justify-center items-center h-screen">
+    <div class="flex flex-col items-center justify-between border border-slate-200 w-96 h-auto rounded-md overflow-hidden">
+      <div class="flex flex-col mt-2 w-full p-5">
+        <h2 class="text-2xl uppercase font-medium text-black">Cadastro</h2>
+        <p class="leading-relaxed text-base text-gray-600">Crie sua conta e comece agora mesmo.</p>
 
-        <!-- Formulário de Cadastro -->
-        <form id="signup-form" id="registerForm">
-            <div class="form-group">
-                <label for="tfNome">Nome Completo</label>
-                <input type="text" id="tfNome" name="name" required>
+        <form id="signup-form" autocomplete="off" class="w-full mt-2">
+          <div class="space-y-2">
+
+            <!-- Nome Completo -->
+            <div>
+              <label for="tfNome" class="text-gray-400 mt-2 block">Nome Completo</label>
+              <input type="text" id="tfNome" name="name"
+                class="w-full mt-1 bg-gray-50 border border-slate-200 block px-4 py-3 text-gray-600 text-sm rounded focus:outline-none placeholder-gray-400"
+                placeholder="Seu nome completo">
             </div>
 
-            <div class="form-group">
-                <label for="tfEmail">Email</label>
-                <input type="email" id="tfEmail" name="email" required>
+            <!-- Email -->
+            <div>
+              <label for="tfEmail" class="text-gray-400 mt-2 block">Email</label>
+              <input type="email" id="tfEmail" name="email"
+                class="w-full mt-1 bg-gray-50 border border-slate-200 block px-4 py-3 text-gray-600 text-sm rounded focus:outline-none placeholder-gray-400"
+                placeholder="Seu email">
             </div>
 
-            <div class="form-group">
-                <label for="tfSenha">Senha</label>
-                <input type="password" id="tfSenha" name="tfSenha" required minlength="6">
-            </div>
-
-            <div class="form-group">
-                <label for="tfTelefone">Telefone</label>
-                <input type="number" id="tfTelefone" name="tfTelefone" required minlength="6">
-            </div>
-
-            <div class="select-container">
-                <label for="cbFuncao" class="input-label">Função:</label>
-                <div class="custom-select">
-                    <select id="cbFuncao" class="input-field" name="perfil" required>
-                    <option value="" disabled selected>Selecione o perfil</option>
-                    <option value="ALUNO">Aluno</option>
-                    <option value="INSTRUTOR">Instrutor</option>
-                    </select>
-                    <span class="custom-arrow">▼</span>
+            <!-- Senha -->
+            <div>
+              <label for="tfSenha" class="text-gray-400 mt-2 block">Senha</label>
+              <div class="relative">
+                <input type="password" id="tfSenha" name="tfSenha" minlength="6"
+                  class="bg-gray-50 mt-1 border border-slate-200 block w-full px-4 py-3 text-gray-600 text-sm rounded focus:outline-none placeholder-gray-400"
+                  placeholder="***********">
+                <div id="btnToggle" class="cursor-pointer absolute inset-y-0 right-0 flex items-center px-5 text-gray-400">
+                  <svg id="icon-eye" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 
+                      .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                  </svg>
+                  <svg id="icon-eye-off" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6 hidden">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0
+                      1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 
+                      7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 
+                      21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
+                  </svg>
                 </div>
+              </div>
             </div>
 
-            <!-- Opção Instrutor -->
-            <div id="recaptcha-container"></div>
-            <button type="submit" id="btNovaConta" class="submit-btn">Criar Conta</button>
-            <!-- Opção Instrutor -->
-            
-            <!-- <div id="recaptcha-container"></div> -->
-
-            <div class="form-footer">
-                <span>Já tem uma conta? </span>
-                <a href="login.html" id="switch-to-login">Faça login</a>
+            <!-- Telefone -->
+            <div>
+              <label for="tfTelefone" class="text-gray-400 mt-2 block">Telefone</label>
+              <input type="number" id="tfTelefone" name="tfTelefone"
+                class="w-full mt-1 bg-gray-50 border border-slate-200 block px-4 py-3 text-gray-600 text-sm rounded focus:outline-none placeholder-gray-400"
+                placeholder="Seu telefone">
             </div>
+
+            <!-- Função -->
+            <div>
+              <label for="cbFuncao" class="text-gray-400 mt-2 block">Função</label>
+              <select id="cbFuncao" name="perfil"
+                class="w-full mt-1 bg-gray-50 border border-slate-200 block px-4 py-3 text-gray-600 text-sm rounded focus:outline-none">
+                <option value="" disabled selected>Selecione o perfil</option>
+                <option value="ALUNO">Aluno</option>
+                <option value="INSTRUTOR">Instrutor</option>
+              </select>
+            </div>
+
+            <!-- ReCAPTCHA se tiver -->
+            <div id="recaptcha-container" class="mt-2"></div>
+
+            <!-- Botão criar conta -->
+            <div class="mt-4">
+              <button id="btNovaConta" type="button"
+                class="block w-full py-2 text-center text-white bg-cyan-500 rounded hover:bg-cyan-700 uppercase font-roboto font-medium">
+                Criar Conta
+              </button>
+            </div>
+          </div>
+
+          <!-- Link para login -->
+          <div class="flex gap-1 pt-5 mb-2">
+            <p class="leading-relaxed text-sm text-gray-600">Já tem uma conta? </p>
+            <a href="login.html" id="switch-to-login" class="text-gray-500 text-sm underline">Faça login</a>
+          </div>
         </form>
+      </div>
     </div>
+  </div>
 
-    <script type="module" src="../controller/CtrlNovaConta.js"></script>
+  <script type="module" src="../controller/CtrlNovaConta.js"></script>
 </body>
 </html>

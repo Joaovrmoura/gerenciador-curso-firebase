@@ -22,6 +22,7 @@ export default class CtrlCriarNovaConta {
   constructor() {
     this.#auth = getAuth(app);
     this.#viewer = new ViewerCriarNovaConta(this);
+    
   }
 
   getAuth() {
@@ -42,6 +43,8 @@ export default class CtrlCriarNovaConta {
         let daoUsuario = new DaoUsuario();
         await daoUsuario.incluir(novoUsuario);
 
+        console.log(novoUsuario, funcao);
+        
         if (funcao == "ALUNO") {
           let novoAluno = new Aluno(nome, conta, telefone);
           console.log(novoAluno);

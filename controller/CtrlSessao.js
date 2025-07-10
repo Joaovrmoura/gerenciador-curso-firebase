@@ -36,16 +36,17 @@ export default class CtrlSessao {
       // precisarmos acrescentar um novo controlador de caso de uso, precisaremos
       // abrir esse arquivo para alteração. O melhor seria implementar um 
       // mecanismo de INJEÇÃO DE DEPENDÊNCIA.     
-      if(document.URL.includes("visualizarCursos.html"))
-        
-        document.addEventListener('DOMContentLoaded', (e) =>{
-          this.ctrlAtual = new CtrlManterCursos();
-        })
-     
-      else if(document.URL.includes("SPAdminCurso.html"))
+
+      if(document.URL.includes("initCursos.html"))
         this.ctrlAtual = new CtrlManterCursos(this.usuario);
-      else if(document.URL.includes("SPAInstrutor.html"))
+      
+      else if(document.URL.includes("initInstrutor.html"))
         this.ctrlAtual = new CtrlManterInstrutores(this.usuario)
+
+      else if(document.URL.includes("initAluno.html")) {
+        // falta o CTRL do aluno
+      }
+
     } catch(e) {
       alert(e);
     }

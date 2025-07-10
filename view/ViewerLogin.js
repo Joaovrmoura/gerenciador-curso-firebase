@@ -9,7 +9,6 @@ export default class ViewerLogin {
     this.tfSenha = this.obterElemento("tfSenha");
     this.btEntrar = this.obterElemento("btEntrar");
 
-    this.init()
     this.btEntrar.onclick = btLoginCallback;
   }
 
@@ -29,12 +28,6 @@ export default class ViewerLogin {
     return this.#ctrl;
   } 
 
-  init(){
-    this.btEntrar.addEventListener('click', (e) => {
-    e.preventDefault();
-  })
-
-  }
 }
 
 

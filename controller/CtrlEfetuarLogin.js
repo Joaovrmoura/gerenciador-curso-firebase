@@ -49,15 +49,14 @@ export default class CtrlEfetuarLogin {
       
         if(objUsuario.getFuncao() == 'ALUNO') {
           // O usuário está com a conta verificada e redireciona para a página inicio.html
-          window.location.href = "paginas/initAluno.html";
+          window.location.href = "../paginas/initAluno.html";
         } else if(objUsuario.getFuncao() == 'ADMIN') {
           // O usuário está com a conta verificada e redireciona para a página inicio.html
-          window.location.href = "../index.html";
+          window.location.href = "../paginas/initAdmin.html";
 
         }else if(objUsuario.getFuncao() == 'INSTRUTOR'){
             console.log(objUsuario.getFuncao());
-           window.location.href = "../SPAInstrutor.html";
-
+           window.location.href = "../paginas/initInstrutor.html";
         }
     })
     // Se a Promise foi "rejected", então a função vinculada ao método 'catch' começa a ser executada

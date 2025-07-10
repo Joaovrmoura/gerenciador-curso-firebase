@@ -225,7 +225,7 @@ export default class CtrlManterCursos {
     try {
       await signOut(this.#usuarioLogado.auth);
       alert("Deslogado com sucesso!");
-      window.location.href = "./paginas/login.html"; 
+      window.location.href = "login.html"; 
     } catch (error) {
       alert("Erro ao sair: " + error);
     }

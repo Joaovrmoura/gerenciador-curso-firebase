@@ -19,12 +19,9 @@ export default class ViewerCriarNovaConta {
     this.btNovaConta = this.obterElemento("btNovaConta");
     this.cbFuncao = this.obterElemento("cbFuncao"); // Remove if not in HTML
 
-    this.successMessage = this.obterElemento('success-message');
-    this.errorMessage = this.obterElemento('error-message');
-
     // Bind context for methods
     this.btNovaConta.onclick = fnNovaConta;
-
+    
     //   // Recaptcha
     // window.recaptchaVerifier = new RecaptchaVerifier(
     //   ctrl.getAuth(),
@@ -62,18 +59,6 @@ export default class ViewerCriarNovaConta {
     window.history.go(-1);
   }
 
-  hideMessages() {
-    this.successMessage.style.display = 'none';
-    this.errorMessage.style.display = 'none';
-  }
-  // Função para alternar entre formulários
-  switchToLoginForm() {
-    this.loginForm.classList.remove('hidden');
-    this.signupForm.classList.add('hidden');
-    this.loginToggle.classList.add('active');
-    this.signupToggle.classList.remove('active');
-    this.hideMessages();
-  }
 
 }
 
@@ -110,13 +95,13 @@ function fnNovaConta() {
     return;
   }
 
-
   // Recuperando a função do novo usuário
   const funcao = this.viewer.cbFuncao.value;
-  console.log(funcao);
   // nome, conta, senha, telefone, funcao
   // Solicito ao controlador do caso de uso que crie a nova conta  nome, email, telefone, senha, funcao
+  console.log(nome, email, senha, telefone, funcao);
   this.viewer.getCtrl().criarNovaConta(nome, email, senha, telefone, funcao);
+
 }
 
 //------------------------------------------------------------------------//
