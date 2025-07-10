@@ -12,7 +12,8 @@ from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
 import DaoUsuario from "../model/DAO/UsuarioDAO.js";
 import Usuario from "/model/Usuario.js";
 import CtrlManterCursos from "./CtrlManterCurso.js";
-
+import CtrlManterInstrutores
+ from "./CtrlManterInstrutor.js";
 const swal = new Function("json,th", "swal(json).then(th)");
 
 
@@ -36,10 +37,15 @@ export default class CtrlSessao {
       // abrir esse arquivo para alteração. O melhor seria implementar um 
       // mecanismo de INJEÇÃO DE DEPENDÊNCIA.     
       if(document.URL.includes("visualizarCursos.html"))
-        this.ctrlAtual = new CtrlManterCursos();
-      else if(document.URL.includes("gerenciarCursos.html"))
-        this.ctrlAtual = new CtrlManterCursos();
-
+        
+        document.addEventListener('DOMContentLoaded', (e) =>{
+          this.ctrlAtual = new CtrlManterCursos();
+        })
+     
+      else if(document.URL.includes("SPAdminCurso.html"))
+        this.ctrlAtual = new CtrlManterCursos(this.usuario);
+      else if(document.URL.includes("SPAInstrutor.html"))
+        this.ctrlAtual = new CtrlManterInstrutores(this.usuario)
     } catch(e) {
       alert(e);
     }
@@ -59,8 +65,7 @@ export default class CtrlSessao {
         if (user) {        
           this.#daoUsuario = new DaoUsuario();
           let usrSistema = await this.#daoUsuario.obterUsuarioPeloUID(user.uid);
-          console.log(user);
-          
+        
           if(usrSistema == null) {
             await this.#daoUsuario.incluir(new Usuario(user.email, user.uid));
             reject('A conta "' + user.email + '" não foi habilitada para usar este sistema');
@@ -71,7 +76,7 @@ export default class CtrlSessao {
           }
         } else {
           reject('Você não realizou a autenticação via Google');
-          window.location.href = 'login.html'
+          window.location.href = 'paginas/login.html'
         }
       });
     });

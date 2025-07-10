@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo</title>
+    <link rel="stylesheet" href="./public/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-gray-50 z-10 to-primary text-slate-900 fixed top-0 w-full border border-slate-200">
+        <div class="max-w-7xl mx-auto px-4">
+            <!-- Top Bar -->
+            <div class="flex items-center justify-between py-3">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="rounded-lg p-1 mr-3">
+                        <div class="bg-cyan-400 w-10 h-10 rounded-md flex items-center justify-center">
+                            <i class="fas fa-graduation-cap text-black text-xl"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="font-bold text-lg leading-tight">Educa+ Cursos</div>
+                        <div class="text-xs opacity-80">ESCOLA VIRTUAL</div>
+                    </div>
+                </div>
+
+
+                <!-- Right Icons -->
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:block">
+                        <button id="btLogout" class="bg-black hover:bg-pink-600 text-white px-4 py-1.5 rounded-full font-medium transition flex items-center">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </div>
+                    <div class="md:hidden">
+                        <button id="mobile-menu-button" class="text-black text-2xl">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- Conteúdo Principal -->
+    <div class="container flex-1 max-w-7xl mx-auto px-4 py-8 py-2 md:mt-28 mt-16">
+
+        <!-- Dashboard -->
+        <section id="dashboard-section" class="section active">
+            <div class="flex justify-between items-center my-6">
+                <h1 class="text-2xl font-bold text-gray-800">Dashboard Admin</h1>
+            </div>
+
+            <div class="flex justify-start items-center text-center gap-2 mb-5">
+                <div
+                    class="flex justify-center items-center text-center rounded-full bg-black p-5 h-5 w-5 text-white">
+                    <p>MS</p>
+                </div>
+                <h1>Ola, sejá bem vindo(a), <a class="text-cyan-600 text-decoration">Adminstrador</a></h1>
+            </div>
+
+            <div class="flex-column mt-8">
+                <!-- Card 1 -->
+                 <button class="bg-white border border-slate-200 p-5 rounded-lg shadow-sm mb-5 w-full text-lg font-semibold text-gray-700 mb-2">
+                    <a href="SPAdminCurso.html">
+                        Gerenciar Cursos
+                    </a>
+                 </button>
+                <!-- Card 1 -->
+                 <button class="bg-white border border-slate-200 p-5 rounded-lg shadow-sm mb-5 w-full text-lg font-semibold text-gray-700 mb-2">
+                    <a href="SPAInstrutor.html">
+                        Gerenciar Instrutores
+                    </a>
+                 </button>
+
+                <!-- Card 1 -->
+                 <button class="bg-white border border-slate-200 p-5 rounded-lg shadow-sm mb-5 w-full text-lg font-semibold text-gray-700 mb-2">
+                    <a href="SPAdminCurso.html">
+                        Gerenciar Alunos
+                    </a>
+                 </button>
+
+            </div>
+        </section>
+
+    </div>
+
+
+        <!-- Footer -->
+    <footer class="w-full bg-white px-10 py-10 mt-36 border-t">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-slate-800">
+            <!-- Logo / Nome do Projeto -->
+            <div>
+                <h2 class="text-xl font-bold mb-2">Firebase Dashboard</h2>
+                <p class="text-sm text-slate-700">Uma plataforma intuitiva para gestão de cursos e usuários.</p>
+            </div>
+
+            <!-- Links de Navegação -->
+            <div>
+                <h3 class="font-semibold mb-2">Navegação</h3>
+                <ul class="space-y-1 text-sm">
+                    <li><a href="#" class="hover:text-custom-blue">Início</a></li>
+                    <li><a href="#" class="hover:text-custom-blue">Cursos</a></li>
+                    <li><a href="#" class="hover:text-custom-blue">Estudantes</a></li>
+                    <li><a href="#" class="hover:text-custom-blue">Contato</a></li>
+                </ul>
+            </div>
+
+            <!-- Contato -->
+            <div>
+                <h3 class="font-semibold mb-2">Contato</h3>
+                <p class="text-sm"><i class="fas fa-envelope mr-2"></i> contato@exemplo.com</p>
+                <p class="text-sm"><i class="fas fa-phone mr-2"></i> (21) 99999-9999</p>
+                <div class="flex mt-3 space-x-3">
+                    <a href="#" class="text-custom-blue hover:text-blue-900"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-custom-blue hover:text-blue-900"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-custom-blue hover:text-blue-900"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-custom-blue hover:text-blue-900"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-slate-200 mt-28"></div>
+        <div class="mt-5 pt-4 text-start text-sm text-slate-600">
+            © 2025 PROJETO FAETERJ 2025. Todos os direitos reservados vtwave.
+        </div>
+    </footer>
+
+    <script></script>
+    <script type="module" src="./controller/CtrlSessao.js"></script>
+</body>
+
+</html>

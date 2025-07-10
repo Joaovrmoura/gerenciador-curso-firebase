@@ -93,7 +93,68 @@ export default class CursoDAO {
   }
 
 
-    //-----------------------------------------------------------------------------------------//
+  //-----------------------------------------------------------------------------------------//
+
+  async obterTodosCursosDoInstrutor(uid){
+    // Recuperando a conexão com o Realtime Database
+    let connectionDB = await this.obterConexao();      
+    // Retornamos uma Promise que nos dará o resultado
+    return new Promise((resolve) => {
+      // Declaramos uma variável que referenciará o array com os objetor Curso
+      let conjCursos = [];      
+      // Definindo uma 'ref' para o objeto no banco de dados      
+      let dbRefCursos = ref(connectionDB,'cursos');
+      // Executo a query a partir da 'ref' definida
+      let consulta = query(dbRefCursos);
+      // Recupero a Promise com o resultado obtido
+      let resultPromise = get(consulta);
+      // Com o resultado, vamos montar o array de resposta
+      resultPromise.then(dataSnapshot => {
+        let tamanho = dataSnapshot.length;
+        // Para cada objeto presente no resultado
+        const daoInstrutor = new InstrutorDAO()
+        dataSnapshot.forEach((dataSnapshotObj,index) => {
+          // Recupero o objeto com val()
+          let elem = dataSnapshotObj.val();
+          
+          const instrutor = daoInstrutor.obterInstrutorPeloUid(uid)
+          // Instancio um objeto Curso e o coloco no array de resposta
+          if(elem.instrutor === uid){
+            conjCursos.push(new Curso(elem.sigla, elem.nome, elem.descricao, elem.cargaHoraria, elem.categoria, instrutor));
+          }
+          // Se é o último objeto a retornar
+          if(index == tamanho - 1)
+            resolve(conjCursos);          
+        });
+        // Ao final do 'forEach', coloco o array como resolve da Promise a ser retornada
+        resolve(conjCursos);
+      }).catch((e) => { console.log("#ERRO: " + e); resolve([])});
+    });
+  } 
+
+  //-----------------------------------------------------------------------------------------//
+
+  // async obterCursoDoinstrutorPelaSigla(sigla, uid){
+  //  let connectionDB = await this.obterConexao();
+  //   return new Promise(resolve => {
+  //     let dbRefCurso = ref(connectionDB, "cursos/" + sigla);
+  //     let consulta = query(dbRefCurso);
+  //     let resultPromise = get(consulta);
+  //     resultPromise.then(dataSnapshot => {
+    
+  //       let curso = dataSnapshot.val();
+        
+  //       if (curso != null && curso.instrutor == uid){
+  //         const daoInstrutor = new InstrutorDAO()
+  //         const instrutor = daoInstrutor.obterInstrutorPeloUid(curso.instrutor)
+
+  //         resolve(new Curso(curso.sigla, curso.nome, curso.descricao, curso.cargaHoraria, curso.categoria, instrutor));
+  //       } 
+  //       else resolve(null);
+  //     });
+  //   });
+  // }
+  //-----------------------------------------------------------------------------------------//
 
   // async incluir(curso) {
   //   let connectionDB = await this.obterConexao();    
@@ -131,90 +192,41 @@ export default class CursoDAO {
   // }
 
   //-----------------------------------------------------------------------------------------//
-
+  
   async incluir(curso) {
-    // Recuperando a conexão com o Realtime Database
     let connectionDB = await this.obterConexao();    
-    // Retornamos uma Promise que nos informará se a inclusão foi realizada ou não
       let daoUsuario = new DaoUsuario();
       let usr = await daoUsuario.obterUsuarioPeloEmail(curso.instrutor.getEmail());
     return new Promise( (resolve, reject) => {
-      // Monto a 'ref' para a entrada 'cursos' para a inclusão
       let dbRefCursos = ref(connectionDB,'cursos');
-      // Inicio uma transação
-
       runTransaction(dbRefCursos, (cursos) => {       
-        // Monto um child de 'cursos', onde vamos pendurar o novo curso. Esse filho 
-        // de 'cursos' que é formado pela 'ref' 'cursos' (dbRefCursos) mais a sigla 
-        // do novo curso
         let dbRefNovoCurso = child(dbRefCursos, curso.getSigla());
-        // 'set' é utilizado para incluir um novo objeto no Firebase a partir de seu 
-        // 'ref'. Como devolve uma promise, definimos o resultado pelo 'then'
-
-        let salvarCurso = {
-          sigla: curso.getSigla(),
-          nome: curso.getNome(), 
-          descricao: curso.getDescricao(),
-          cargaHoraria: curso.getCargaHoraria(),
-          categoria: curso.getCategoria(),
-          instrutor: usr.uid
-          }
-          
-        let setPromise = set(dbRefNovoCurso, salvarCurso);
+        let setPromise = set(dbRefNovoCurso, {...curso, instrutor: usr.uid});
         // Definimos o resultado da operação
         setPromise
-          .then( value => {resolve(true)})
-          .catch((e) => {console.log("#ERRO: " + e);resolve(false);});
+          .then( value => {
+            resolve(true)
+          })
+          .catch((e) => {
+            console.log("#ERRO: " + e);
+            resolve(false);
+          });
       });
     });
-    return resultado;
+    // return resultado;
   }
-
   //-----------------------------------------------------------------------------------------//
 
-
-  //-----------------------------------------------------------------------------------------//
-  //-----------------------------------------------------------------------------------------//
-
-  // async incluir(curso) {
-  //   // Recuperando a conexão com o Realtime Database
-  //   let connectionDB = await this.obterConexao();    
-  //   // Retornamos uma Promise que nos informará se a inclusão foi realizada ou não
-  //   return new Promise( (resolve, reject) => {
-  //     // Monto a 'ref' para a entrada 'cursos' para a inclusão
-  //     let dbRefCursos = ref(connectionDB,'cursos');
-  //     // Inicio uma transação
-  //     runTransaction(dbRefCursos, async (cursos) => {       
-  //       // Monto um child de 'cursos', onde vamos pendurar o novo curso. Esse filho 
-  //       // de 'cursos' que é formado pela 'ref' 'cursos' (dbRefCursos) mais a sigla 
-  //       // do novo curso
-  //       const daoUsuario = new DaoUsuario()
-  //       const user = await daoUsuario.obterUsuarioPeloEmail(curso.instrutor.email)
-
-  //       let dbRefNovoCurso = child(dbRefCursos, curso.getSigla());
-  //       // 'set' é utilizado para incluir um novo objeto no Firebase a partir de seu 
-  //       // 'ref'. Como devolve uma promise, definimos o resultado pelo 'then'
-  //       console.log(user.uid, curso);
-        
-  //       let setPromise = set(dbRefNovoCurso, {curso, instrutor_uid: user.uid});
-  //       // Definimos o resultado da operação
-  //       setPromise
-  //         .then( value => {resolve(true)})
-  //         .catch((e) => {console.log("#ERRO: " + e);resolve(false);});
-  //     });
-  //   });
-  //   return resultado;
-  // }
-
-  //-----------------------------------------------------------------------------------------//
 
   async alterar(curso) {
     let connectionDB = await this.obterConexao();
+    let daoUsuario = new DaoUsuario();
+    let usr = await daoUsuario.obterUsuarioPeloEmail(curso.instrutor.getEmail());
     return new Promise((resolve, reject) => {
       let dbRefCursos = ref(connectionDB, "cursos");
       runTransaction(dbRefCursos, cursos => {
         let dbRefCursoAlterado = child(dbRefCursos, curso.getSigla());
-        let setPromise = set(dbRefCursoAlterado, curso);
+        let setPromise = set(dbRefCursoAlterado, {...curso, instrutor: usr.uid});
         setPromise
           .then(value => {
             resolve(true);

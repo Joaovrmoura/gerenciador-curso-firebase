@@ -71,17 +71,8 @@ class InstrutorDAO {
         let usr = dataSnapshot.val();
         console.log(usr);
         if (usr != null) {
-          const usrData = Object.values(usr)[0];
+          const usrData = Object.values(usr)[0]
 
-          // TEM QUE  VOLTA A SER NEW Usuario(usrData.email, usrData.uid, usrData.funcao)
-
-          // Retorna um objeto com chave de UID e valor sendo outro objeto com as informações
-          // console.log("Instrutor da consulta pelo e-mail: ");
-          // console.log(usr);
-          // console.log(Object.values(usr)[0]);
-          // console.log(usrData.email);
-          // console.log(usrData.uid);
-          // console.log(usrData.funcao);
           
           resolve(new Instrutor(usrData.nome, usrData.email, usrData.fone));
         } else {
@@ -120,19 +111,14 @@ class InstrutorDAO {
     });
   }
 
-  async incluir(instrutor) {
-  let connectionDB = await this.obterConexao();
-  let resultado = new Promise((resolve, reject) => {
-
-    let dbRefInstrutores = ref(connectionDB, "instrutores");
     
-    runTransaction(dbRefInstrutores, async instrutores => {
-      let daoUsuario = new UsuarioDAO();
-      let usr = await daoUsuario.obterUsuarioPeloEmail(instrutor.getEmail());
-      if (usr !== undefined && usr !== null) {
-        // O instrutor já foi cadastrado como um usuário do sistema
-        let dbRefNovoInstrutor = ref(connectionDB, "instrutores/" + usr.uid); // /instrutores/$uid
-        // Guarda no ref definido acima o objeto 'instrutor' recebido por parâmetro
+  async incluir(instrutor, uid) {
+    let connectionDB = await this.obterConexao();
+    let resultado = new Promise((resolve, reject) => {
+      let dbRefInstrutores = ref(connectionDB, "instrutores");
+      runTransaction(dbRefInstrutores, async instrutores => {
+        let dbRefNovoInstrutor;
+        dbRefNovoInstrutor = child(dbRefInstrutores, uid);
         let setPromise = set(dbRefNovoInstrutor, instrutor);
         setPromise.then(
           value => {
@@ -142,16 +128,11 @@ class InstrutorDAO {
             reject(erro);
           }
         );
-      } else {
-        reject("Esse instrutor ainda não foi cadastrado como usuário.");
-      }
-      return; // retorna undefined para finalizar a transação
-      }); // fim do runTransaction
-    }); // fim da Promise
-
-    return resultado; // retorna a Promise criada
+      });
+    });
+    return resultado;
   }
-                                  
+  
   async alterar(instrutor) {
     let connectionDB = await this.obterConexao();
     let resultado = new Promise((resolve, reject) => {

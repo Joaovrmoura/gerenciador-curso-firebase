@@ -1,4 +1,3 @@
-
 import {
   getDatabase,
   ref,
@@ -68,13 +67,6 @@ class DaoUsuario {
         console.log(usr);
         if (usr != null) {
           const usrData = Object.values(usr)[0];
-          // Retorna um objeto com chave de UID e valor sendo outro objeto com as informações
-          // console.log("Usuário da consulta pelo e-mail: ");
-          // console.log(usr);
-          // console.log(Object.values(usr)[0]);
-          // console.log(usrData.email);
-          // console.log(usrData.uid);
-          // console.log(usrData.funcao);
           resolve(new Usuario(usrData.email, usrData.uid, usrData.funcao));
         } else {
           resolve(null);

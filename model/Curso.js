@@ -67,12 +67,12 @@ class Curso {
 
   static validarNome(nome) {
     if (nome == null || nome === undefined)
-      throw new ModelError("O nome não pode ser nulo!");
+      throw new ModelError("O nome do curso não pode ser nulo!");
     if (typeof nome !== "string")
       throw new ModelError("O nome deve ser uma string!");
-    if (nome.trim() === "") throw new ModelError("O nome não pode ser vazio!");
+    if (nome.trim() === "") throw new ModelError("O nome do curso não pode ser vazio!");
     if (nome.length > 50)
-      throw new ModelError("O nome deve ter até 50 caracteres!");
+      throw new ModelError("O nome do curso deve ter até 50 caracteres!");
   }
 
   // Getter e Setter para descricao
@@ -87,13 +87,13 @@ class Curso {
 
   static validarDescricao(descricao) {
     if (descricao == null || descricao === undefined)
-      throw new ModelError("A descrição não pode ser nula!");
+      throw new ModelError("A descrição do curso não pode ser nula!");
     if (typeof descricao !== "string")
-      throw new ModelError("A descrição deve ser uma string!");
+      throw new ModelError("A descrição do curso deve ser uma string!");
     if (descricao.trim() === "")
-      throw new ModelError("A descrição não pode ser vazia!");
-    if (descricao.length > 200)
-      throw new ModelError("A descrição deve ter até 200 caracteres!");
+      throw new ModelError("A descrição do curso não pode ser vazia!");
+    if (descricao.length > 300)
+      throw new ModelError("A descrição do curso deve ter até 200 caracteres!");
   }
 
   // Getter e Setter para cargaHoraria
@@ -108,14 +108,14 @@ class Curso {
 
   static validarCargaHoraria(cargaHoraria) {
     if (cargaHoraria == null || cargaHoraria === undefined)
-      throw new ModelError("A carga horária não pode ser nula!");
+      throw new ModelError("A carga horária do curso não pode ser nula!");
     if (typeof cargaHoraria !== "number")
-      throw new ModelError("A carga horária deve ser um número!");
+      throw new ModelError("A carga horária do curso deve ser um número!");
     if (cargaHoraria <= 0)
-      throw new ModelError("A carga horária deve ser maior que zero!");
+      throw new ModelError("A carga horária do curso deve ser maior que zero!");
   }
 
-  // Getter e Setter para categoria
+  // Getter e Setter para categoria do curso
   getCategoria() {
     return this.categoria;
   }
@@ -127,13 +127,13 @@ class Curso {
 
   static validarCategoria(categoria) {
     if (categoria == null || categoria === undefined)
-      throw new ModelError("A categoria não pode ser nula!");
+      throw new ModelError("A categoria do curso não pode ser nula!");
     if (typeof categoria !== "string")
-      throw new ModelError("A categoria deve ser uma string!");
+      throw new ModelError("A categoria do curso deve ser uma string!");
     if (categoria.trim() === "")
-      throw new ModelError("A categoria não pode ser vazia!");
+      throw new ModelError("A categoria do curso não pode ser vazia!");
     if (categoria.length > 30)
-      throw new ModelError("A categoria deve ter até 30 caracteres!");
+      throw new ModelError("A categoria do curso deve ter até 30 caracteres!");
     const categoriasValidas = Object.values(CursoCategoria);
     if (!categoriasValidas.includes(categoria))
       throw new ModelError(

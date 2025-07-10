@@ -1,1 +1,0 @@
-Nessa pasta entrarão os arquivos HTML das páginas

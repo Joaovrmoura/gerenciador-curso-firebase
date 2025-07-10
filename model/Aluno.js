@@ -6,7 +6,6 @@ class Aluno {
     this.setEmail(email);
     this.setFone(telefone);
   }
-
   // Getter e Setter para nome
   getNome() {
     return this.nome;

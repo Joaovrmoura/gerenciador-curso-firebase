@@ -44,16 +44,19 @@ export default class CtrlCriarNovaConta {
 
         if (funcao == "ALUNO") {
           let novoAluno = new Aluno(nome, conta, telefone);
+          console.log(novoAluno);
           let daoAluno = new DaoAluno();
-          await daoAluno.incluir(novoAluno);
+          await daoAluno.incluir(novoAluno, user.uid);
 
         } else if (funcao == "INSTRUTOR") {
           let novoInstrutor = new Instrutor(nome, conta, telefone);
           let daoInstrutor = new InstrutorDAO();
-          await daoInstrutor.incluir(novoInstrutor);
+          await daoInstrutor.incluir(novoInstrutor, user.uid);
+          
         }
 
         this.#viewer.voltar();
+
       })
       .catch(error => {
         let errorCode = error.code;

@@ -1,4 +1,4 @@
-class CursoDTO {
+export default class CursoDTO {
   #sigla;
   #nome;
   #descricao;

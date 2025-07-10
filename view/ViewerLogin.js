@@ -45,5 +45,5 @@ function btLoginCallback() {
   if (!conta) return alert("Preencha o e-mail");
   if (!senha) return alert("Preencha a senha");
 
-  this.viewer.getCtrl().login(conta, senha);
+  this.viewer.getCtrl().efetuarLogin(conta, senha);
 }

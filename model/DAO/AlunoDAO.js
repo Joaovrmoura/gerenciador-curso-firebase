@@ -71,33 +71,28 @@ class AlunoDAO {
     });
   }
 
-  async incluir(aluno) {
+  async incluir(aluno, uid) {
     let connectionDB = await this.obterConexao();
     let resultado = new Promise((resolve, reject) => {
       let dbRefAlunos = ref(connectionDB, "alunos");
       runTransaction(dbRefAlunos, async alunos => {
         let dbRefNovoAluno;
-        let daoUsuario = new UsuarioDAO();
-        let usr = await daoUsuario.obterUsuarioPeloEmail(aluno.getEmail());
-        if (usr !== undefined && usr !== null) {
-          dbRefNovoAluno = child(dbRefAlunos, usr.uid);
-          let setPromise = set(dbRefNovoAluno, aluno);
-          setPromise.then(
-            value => {
-              resolve(true);
-            },
-            erro => {
-              reject(erro);
-            }
-          );
-        } else {
-          reject("Esse aluno ainda não foi cadastrado como usuário.");
-        }
+
+        dbRefNovoAluno = child(dbRefAlunos, uid);
+        let setPromise = set(dbRefNovoAluno, aluno);
+        setPromise.then(
+          value => {
+            resolve(true);
+          },
+          erro => {
+            reject(erro);
+          }
+        );
       });
     });
     return resultado;
   }
-
+  
   async alterar(aluno) {
     let connectionDB = await this.obterConexao();
     let resultado = new Promise((resolve, reject) => {

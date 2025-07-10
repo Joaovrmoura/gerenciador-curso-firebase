@@ -24,7 +24,6 @@ export default class ViewerCriarNovaConta {
 
     // Bind context for methods
     this.btNovaConta.onclick = fnNovaConta;
-    this.init();
 
     //   // Recaptcha
     // window.recaptchaVerifier = new RecaptchaVerifier(
@@ -76,10 +75,6 @@ export default class ViewerCriarNovaConta {
     this.hideMessages();
   }
 
-  init() {
-    this.btNovaConta.addEventListener('click', (e) => {e.preventDefault();});
-  }
-
 }
 
 //------------------------------------------------------------------------//
@@ -115,11 +110,6 @@ function fnNovaConta() {
     return;
   }
 
-  // // Verificando se tfSenha é igual ao tfReplay
-  // if (replay !== senha) {
-  //   alert("A senha e a sua confirmação possuem valores diferentes");
-  //   return;
-  // }
 
   // Recuperando a função do novo usuário
   const funcao = this.viewer.cbFuncao.value;
