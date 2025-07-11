@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel Administrativo</title>
-    <link rel="stylesheet" href="./public/css/style.css">
+    <link rel="stylesheet" href="../public/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -53,7 +53,7 @@
             <div class="hidden md:flex items-center justify-between py-2 border-t border-slate-200 ">
                 <div class="flex space-x-1">
                     <a href="#" class="nav-link px-4 py-2 active font-medium" data-section="home">Início</a>
-                    <a href="#" class="nav-link px-4 py-2 font-medium" data-section="all-courses">Cursos</a>
+                    <a href="#" class="nav-link px-4 py-2 font-medium" data-section="all-courses">Matrículas</a>
                     <a href="#" class="nav-link px-4 py-2 font-medium" data-section="profile">Perfil</a>
                     <a href="#" class="nav-link px-4 py-2 font-medium" data-section="help">Ajuda</a>
                 </div>
@@ -72,10 +72,10 @@
                 <a href="#" class="block px-3 py-2 rounded-md font-medium text-black" data-section="profile">Perfil</a>
                 <a href="#" class="block px-3 py-2 rounded-md font-medium text-black" data-section="help">Ajuda</a>
                 <div class="pt-2 border-t border-white border-opacity-20">
-                    <button
-                        class="w-full bg-accent bg-cyan-600 text-white px-4 py-2 rounded-md font-medium transition flex items-center justify-center">
-                        Logout
-                    </button>
+                    <button id="btLogout" class="bg-black hover:bg-red-600 text-white font-thin
+                         px-4 py-1.5 rounded-full font-medium transition flex items-center">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
                 </div>
             </div>
         </div>
@@ -100,74 +100,74 @@
                 <div class="flex justify-start items-center text-center gap-2 mb-5">
                     <div
                         class="flex justify-center items-center text-center rounded-full bg-black p-5 h-5 w-5 text-white">
-                        <p>MS</p>
+                        <p>AL</p>
                     </div>
-                    <h1>Ola, sejá bem vindo(a), <a href="asdasd" class="text-cyan-600 text-decoration">Mariana
-                            sanches!</a></h1>
+                      <h1>Olá, seja bem-vindo(a), <button id="divPerfil" class="text-cyan-600 text-decoration"></button></h1>
                 </div>
                 <!-- NOME DO ALUNO -->
 
 
                 <!-- HERO DA PÁGINA -->
-                <div class="relative mb-10 border border-slate-200 rounded-lg p-6 sm:p-10">
+            
 
-                    <div id="courseCard"
-                        class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-                        <!-- Lista de cursos -->
-                        <div class="p-5 rounded-lg w-full lg:w-1/2  duration-500 transition-all ease-in">
-                            <h2 id="courseTitle" class="text-lg sm:text-2xl lg:text-4xl font-bold mb-2">
-                                Administrando Banco de Dados
-                            </h2>
-                            <p id="courseDescription" class="text-sm text-gray-500">
-                                Neste curso, você verá uma introdução sobre como administrar bancos de dados.
-                            </p>
+                <div class="flex mt-5 flex-col rounded-md border border-slate-200 ">
 
-                            <!-- Informações -->
-                            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 mt-5 mb-6">
-                                <div class="border-b sm:border-b-0 sm:border-r border-slate-200 sm:pr-6 pb-2 sm:pb-0">
-                                    <p class="text-lg text-slate-900">Duração</p>
-                                    <p id="courseDuration" class="text-sm text-slate-400">15h</p>
-                                </div>
-                                <div>
-                                    <p class="text-lg text-slate-900">Categoria</p>
-                                    <p id="courseCategorie" class="text-sm text-slate-400">Tecnologia</p>
-                                </div>
-                            </div>
-
-                            <button class="rounded-full bg-black text-white px-4 py-2 mb-3">
-                                Inscrever-se
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Navegação -->
-                    <div class="flex justify-center sm:space-x-6 mt-5 space-x-2">
-                        <button id="prevBtn"
-                            class="p-3 rounded-full border border-slate-200 hover:bg-opacity-60 backdrop-blur-sm">
-                            <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 19l-7-7 7-7" />
-                            </svg>
-                        </button>
-
-                        <div class="flex items-center space-x-3">
-                            <span id="currentSlide" class="text-slate-700 font-medium">2</span>
-                            <span class="text-slate-400">/</span>
-                            <span id="totalSlides" class="text-slate-700">3</span>
-                            <div class="sm:w-24 w-16 h-1 bg-slate-500 bg-opacity-30 rounded-full ml-4">
-                                <div id="progressBar" class="h-full bg-black rounded-full" style="width: 66.67%"></div>
-                            </div>
+                    <div class="px-5 h-full sm:mt-10 flex flex-col space-y-4">
+                        <div class="flex justify-between items-center">
+                            <div class="text-slate-900 text-lg font-bold" id="divNumerarCurso"></div>
                         </div>
 
-                        <button id="nextBtn"
-                            class="p-3 rounded-full border border-slate-200 hover:bg-opacity-60 backdrop-blur-sm">
-                            <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
+                        <!-- SIGLA -->
+                        <div class="flex flex-col">
+                            <label for="tfSigla" class="mb-1 text-md">Sigla do Curso</label>
+                            <input type="text" id="tfSigla" class="w-full bg-gray-50 border border-slate-200 p-2"
+                                placeholder="Ex: DEV101" required>
+                        </div>
+
+                        <!-- NOME -->
+                        <div class="flex flex-col">
+                            <label for="tfNome" class="mb-1 text-md">Nome do Curso</label>
+                            <input type="text" id="tfNome" class="w-full bg-gray-50 border border-slate-200 p-2"
+                                placeholder="Ex: Desenvolvimento Web Moderno" required>
+                        </div>
+
+                        <!-- DESCRIÇÃO -->
+                        <div class="flex flex-col">
+                            <label for="tfDescricao" class="mb-1 text-md">Descrição</label>
+                            <textarea id="tfDescricao" class="w-full bg-gray-50 border border-slate-200 h-20 p-2"
+                                placeholder="Descreva o curso em detalhes..." required></textarea>
+                        </div>
+
+                        <!-- CATEGORIA E CARGA -->
+                        <div class="flex w-full gap-5">
+                            <!-- Categoria -->
+                            <div class="w-full flex flex-col">
+                                <label for="tfCategoria" class="mb-1 text-md">Categoria</label>
+                                <input type="text" id="tfCategoria"
+                                    class="w-full bg-gray-50 border border-slate-200 p-2" placeholder="Ex: Tecnologia"
+                                    required>
+                            </div>
+
+                            <!-- Carga Horária -->
+                            <div class="w-full flex flex-col">
+                                <label for="tfCargaHoraria" class="mb-1 text-md">Carga Horária (horas)</label>
+                                <input type="number" id="tfCargaHoraria"
+                                    class="w-full bg-gray-50 border border-slate-200 p-2" min="1" placeholder="Ex: 40"
+                                    required>
+                            </div>
+                        </div>
+
+
                     </div>
-                    <!-- Navegação -->
+
+                    <div id="divNavegacao" class="flex items-center justify-between w-full p-5 mb-5">
+                        <button id="btAnterior" class="bg-black text-white text-sm rounded-lg  px-6 py-3">Anterior</button>
+                        
+                        <div id="divPaginacao" class="flex items-center gap-2 ">
+                        </div>
+                        <button id="btProximo" class="bg-black text-white text-sm rounded-lg  px-6 py-3">Próximo</button>
+                    </div>
+
                 </div>
                 <!-- HERO DA PÁGINA -->
 
@@ -245,7 +245,7 @@
                 <!-- MEUS CURSOS TITULO -->
                 <div class="flex border-b border-b-slate-200 py-5 mt-14 justify-between items-center mb-6">
                     <h2 class="text-3xl font-semibold text-gray-800">
-                        Minhas Matrículas
+                        Cursos disponíveis
                     </h2>
                 </div>
                 <!-- MEUS CURSOS TITULO -->
@@ -253,7 +253,7 @@
 
 
                 <!-- Cards Container -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <div id="divMostrarCursos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
 
                       <!-- Card 1 - Modelagem de Dados -->
                     <div class="rounded-xl p-6 card-hover border border-slate-200">
@@ -346,7 +346,7 @@
                 <!-- Cursos titulo-->
                 <div class="flex border-b border-b-slate-200 py-5 justify-between items-center mb-6">
                     <h2 class="text-3xl font-semibold text-gray-800">
-                        Cursos Disponíveis
+                        Minhas Matrículas
                     </h2>
                 </div>
 
@@ -526,48 +526,11 @@
 
     <script>
 
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        if (mobileMenuButton && mobileMenu) {
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('open');
-            });
-        }
-
         document.addEventListener('DOMContentLoaded', function () {
             // Navegação entre seções
             const navLinks = document.querySelectorAll('.nav-link');
             const sections = document.querySelectorAll('.section');
-                    // Links no mobile menu
-            const mobileLinks = document.querySelectorAll('#mobile-menu a');
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', function (e) {
-                    if (this.getAttribute('data-section')) {
-                        e.preventDefault();
-                        const targetSection = this.getAttribute('data-section');
 
-                        // Esconder todas as seções
-                        sections.forEach(section => {
-                            section.classList.remove('active');
-                        });
-
-                        // Mostrar a seção alvo
-                        document.getElementById(`${targetSection}-section`).classList.add('active');
-
-                        // Fechar o menu mobile
-                        mobileMenu.classList.remove('open');
-
-                        // Atualizar o menu principal
-                        navLinks.forEach(navLink => {
-                            navLink.classList.remove('active');
-                            if (navLink.getAttribute('data-section') === targetSection) {
-                                navLink.classList.add('active');
-                            }
-                        });
-                    }
-                });
-            });
             navLinks.forEach(link => {
                 link.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -593,105 +556,10 @@
                 });
             });
 
-            // Simular dados de progresso
-            const progressBars = document.querySelectorAll('.progress-bar');
-            progressBars.forEach(bar => {
-                const width = bar.getAttribute('data-progress');
-                bar.style.width = width;
-            });
-        });
-
-
-        const courses = [
-            {
-                title: "Desenvolvimento Web Full Stack",
-                description: "Uma jornada completa para se tornar um desenvolvedor full stack, desde os fundamentos até projetos avançados com as tecnologias mais modernas do mercado...",
-                categories: "Tecnologia",
-                duration: "40h"
-            },
-            {
-                title: "Aprendizagem Criativa para Educadores",
-                description: "Nesta Trilha de Conhecimento reunimos quatro cursos excelentes, disponíveis em nosso catálogo, que vão ajudar os educadores a transformarem suas aulas em...",
-                categories: "Concursos",
-                duration: "24h"
-            },
-            {
-                title: "Data Science e Analytics",
-                description: "Mergulhe no mundo dos dados com esta trilha completa que abrange desde estatística básica até machine learning avançado, preparando você para o futuro...",
-                categories: "Idiomas",
-                duration: "56h"
-            }
-        ];
-
-        let currentIndex = 1; // Start with middle course
-        const totalCourses = courses.length;
-
-        const elements = {
-            title: document.getElementById('courseTitle'),
-            description: document.getElementById('courseDescription'),
-            categories: document.getElementById('courseCategorie'),
-            duration: document.getElementById('courseDuration'),
-            currentSlide: document.getElementById('currentSlide'),
-            totalSlides: document.getElementById('totalSlides'),
-            progressBar: document.getElementById('progressBar'),
-            prevBtn: document.getElementById('prevBtn'),
-            nextBtn: document.getElementById('nextBtn'),
-            card: document.getElementById('courseCard')
-        };
-
-        function updateCourse() {
-            const course = courses[currentIndex];
-
-            // Add slide transition
-            elements.card.classList.add('slide-exit-active');
-
-            setTimeout(() => {
-                elements.title.textContent = course.title;
-                elements.description.textContent = course.description;
-                elements.categories.textContent = course.categories;
-                elements.duration.textContent = course.duration;
-                elements.currentSlide.textContent = currentIndex + 1;
-                elements.totalSlides.textContent = totalCourses;
-
-                const progressPercentage = ((currentIndex + 1) / totalCourses) * 100;
-                elements.progressBar.style.width = progressPercentage + '%';
-
-                elements.card.classList.remove('slide-exit-active');
-                elements.card.classList.add('slide-enter-active');
-
-                setTimeout(() => {
-                    elements.card.classList.remove('slide-enter-active');
-                }, 500);
-            }, 250);
-        }
-
-        function nextCourse() {
-            currentIndex = (currentIndex + 1) % totalCourses;
-            updateCourse();
-        }
-
-        function prevCourse() {
-            currentIndex = (currentIndex - 1 + totalCourses) % totalCourses;
-            updateCourse();
-        }
-
-        // Event listeners
-        elements.nextBtn.addEventListener('click', nextCourse);
-        elements.prevBtn.addEventListener('click', prevCourse);
-
-
-        // Initialize
-        elements.totalSlides.textContent = totalCourses;
-        elements.currentSlide.textContent = currentIndex + 1;
-        elements.progressBar.style.width = ((currentIndex + 1) / totalCourses) * 100 + '%';
-
-        // Add keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') prevCourse();
-            if (e.key === 'ArrowRight') nextCourse();
         });
 
     </script>
+    <script type="module" src="../controller/CtrlSessao.js"></script>
 </body>
 
-</html>
+</html> -->

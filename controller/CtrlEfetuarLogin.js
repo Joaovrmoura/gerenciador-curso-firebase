@@ -8,7 +8,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
 
 import DaoUsuario from "../model/DAO/UsuarioDAO.js";
-import ViewerEfetuarLogin from "../view/ViewerLogin.js";
+import ViewerEfetuarLogin from "../viewer/ViewerLogin.js";
 
 export default class CtrlEfetuarLogin {
   //

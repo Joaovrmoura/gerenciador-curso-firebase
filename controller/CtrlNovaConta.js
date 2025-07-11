@@ -11,7 +11,7 @@ import Usuario from "../model/Usuario.js";
 import Aluno from "../model/Aluno.js";
 import DaoUsuario from "../model/DAO/UsuarioDAO.js";
 import DaoAluno from "../model/DAO/AlunoDAO.js";
-import ViewerCriarNovaConta from "../view/ViewerCriarNovaConta.js";
+import ViewerCriarNovaConta from "../viewer/ViewerCriarNovaConta.js";
 import Instrutor from "../model/Instrutor.js";
 import InstrutorDAO from "../model/DAO/InstrutorDAO.js";
 

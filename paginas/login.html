@@ -99,6 +99,25 @@
         </div>
 
     </div>
+    
     <script type="module" src="../controller/CtrlEfetuarLogin.js"></script>
+    <script>
+      document.getElementById("btnToggle").addEventListener("click", function () {
+          const passwordField = document.getElementById("tfSenha");
+          const eyeIcon = document.getElementById("icon-eye");
+          const eyeOffIcon = document.getElementById("icon-eye-off");
+            
+          if (passwordField.type === "password") {
+              passwordField.type = "text";
+              eyeIcon.classList.add("hidden");
+              eyeOffIcon.classList.remove("hidden");
+          } else {
+              passwordField.type = "password";
+              eyeIcon.classList.remove("hidden");
+              eyeOffIcon.classList.add("hidden");
+          }
+      });
+  </script>
+  
 </body>
 </html>

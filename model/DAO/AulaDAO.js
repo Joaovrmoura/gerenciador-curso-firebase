@@ -53,8 +53,6 @@ class AulaDAO {
   }
   //-----------------------------------------------------------------------------------------//
   
-  //-----------------------------------------------------------------------------------------//
-
   async obterAulasPelaSiglaDoCurso(sigla) {
     // Recuperando a conexão com o Realtime Database
     let connectionDB = await this.obterConexao();      
@@ -77,7 +75,7 @@ class AulaDAO {
           // Recupero o objeto com val()
           let elem = dataSnapshotObj.val();
           
-          // Instancio um objeto Curso e o coloco no array de resposta
+          // Instancio um objeto Curso e o coloco no array de resposta      
           conjAulas.push(elem);
           
           // Se é o último objeto a retornar
@@ -104,9 +102,9 @@ class AulaDAO {
       runTransaction(dbRefAulas, (aulas) => {
         // Monta o child 'aulas/$siglaCurso/$numOrdem'
         let dbRefNovaAula = child(dbRefAulas, `${aula.curso.getSigla()}/${aula.getNumOrdem()}`);
-        
+
         // Inclui ou atualiza a aula usando 'set'
-        let setPromise = set(dbRefNovaAula, { conteudo: aula.getConteudo() });
+        let setPromise = set(dbRefNovaAula,  {conteudo: aula.getConteudo()});
         
         // Define o resultado da operação
         setPromise

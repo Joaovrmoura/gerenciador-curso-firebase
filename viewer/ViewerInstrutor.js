@@ -1,7 +1,7 @@
 import ViewerError from "./ViewerError.js"
 import Status from "./Status.js"
 
-export default class ViwerInstrutor {
+export default class ViewerInstrutor {
   #ctrl
   constructor(ctrl) {
     this.#ctrl = ctrl
@@ -13,37 +13,38 @@ export default class ViwerInstrutor {
     this.divCategoria = this.obterElemento('divCategoria')
     this.divDescricao = this.obterElemento('divDescricao')
 
-    this.btnEditar = this.obterElemento('btnEdit')
-    this.btnIncluir = this.obterElemento('btnAdd')
-    this.btnCancelar = this.obterElemento('btnCancel')
-    this.btnConfirmar = this.obterElemento('btnConfirme')
-    this.divBtnIniciarAcao = this.obterElemento('divBtnIniciarAcao')
-    this.divBtnConfirmarAcao = this.obterElemento('divBtnConfirmarAcao')
+    this.btEditar = this.obterElemento('btEditar')
+    this.btIncluir = this.obterElemento('btIncluir')
+    this.btCancelar = this.obterElemento('btCancelar')
+    this.btConfirmar = this.obterElemento('btConfirmar')
+    this.divbtIniciarAcao = this.obterElemento('divbtIniciarAcao')
+    this.divbtConfirmarAcao = this.obterElemento('divbtConfirmarAcao')
     this.divTotalCurso = this.obterElemento('divTotalCurso')
     this.divPaginacaoAula = this.obterElemento('divPaginacaoAula')
-    this.btPerfil = this.obterElemento('btPerfil')
+    this.divPerfil = this.obterElemento('divPerfil')
     this.btLogout = this.obterElemento('btLogout')
+    this.divMostrarCursos = this.obterElemento('divMostrarCursos')
 
     this.divNavAulas = this.obterElemento('divNavAulas')
     this.divNavCursos = this.obterElemento('divNavCursos')
     // navegar pelos cursos
-    this.btnProximaCurso = this.obterElemento('btnProximaCurso')
-    this.btnCursoAnterior = this.obterElemento('btnCursoAnterior')
+    this.btProximaCurso = this.obterElemento('btProximaCurso')
+    this.btCursoAnterior = this.obterElemento('btCursoAnterior')
     this.divPaginacaoCurso = this.obterElemento('divPaginacaoCurso')
 
-    this.btnProximaAula = this.obterElemento('btnProximaAula')
-    this.btnAulaAnterior = this.obterElemento('btnAulaAnterior')
+    this.btProximaAula = this.obterElemento('btProximaAula')
+    this.btAulaAnterior = this.obterElemento('btAulaAnterior')
 
-    this.btnAulaAnterior.onclick = fnBAulaAnterior
-    this.btnProximaAula.onclick = fnBProximaAula
+    this.btAulaAnterior.onclick = fnBAulaAnterior
+    this.btProximaAula.onclick = fnBProximaAula
 
     this.btLogout.onclick = fnBLogout
-    this.btnCursoAnterior.onclick = fnBProximoCurso
-    this.btnProximaCurso.onclick = fnBCuroAnterior
-    this.btnIncluir.onclick = fnBIncluir
-    this.btnEditar.onclick = fnBAlterar
-    this.btnCancelar.onclick = fnBCancelar
-    this.btnConfirmar.onclick = fnBtOk
+    this.btCursoAnterior.onclick = fnBProximoCurso
+    this.btProximaCurso.onclick = fnBCursoAnterior
+    this.btIncluir.onclick = fnBIncluir
+    this.btEditar.onclick = fnBAlterar
+    this.btCancelar.onclick = fnBCancelar
+    this.btConfirmar.onclick = fnBtOk
 
   }
 
@@ -52,30 +53,30 @@ export default class ViwerInstrutor {
   statusEdicao(status) {
     
     if(status === Status.EXCLUINDO){
-      this.divBtnIniciarAcao.classList.add('hidden')
-      this.divBtnConfirmarAcao.classList.remove('hidden')
+      this.divbtIniciarAcao.classList.add('hidden')
+      this.divbtConfirmarAcao.classList.remove('hidden')
       this.divNavAulas.classList.add('hidden')
       this.divNavCursos.classList.add('hidden')
     }
     
     if (status === Status.NAVEGANDO) {
-        this.divBtnConfirmarAcao.classList.add('hidden')
-        this.divBtnIniciarAcao.classList.remove('hidden')
+        this.divbtConfirmarAcao.classList.add('hidden')
+        this.divbtIniciarAcao.classList.remove('hidden')
         this.divNavAulas.classList.remove('hidden')
         this.divNavCursos.classList.remove('hidden')
 
     } else if (status === Status.ALTERANDO || status === Status.INCLUINDO) {
         this.tfConteudo.disabled = false;
-        this.divBtnIniciarAcao.classList.add('hidden')
+        this.divbtIniciarAcao.classList.add('hidden')
         this.divNavAulas.classList.add('hidden')
         this.divNavCursos.classList.add('hidden')
 
       if (status === Status.INCLUINDO) {
         this.tfConteudo.value = ""
-        this.divBtnConfirmarAcao.classList.remove('hidden')
+        this.divbtConfirmarAcao.classList.remove('hidden')
       }
       if(status == Status.ALTERANDO){
-        this.divBtnConfirmarAcao.classList.remove('hidden')
+        this.divbtConfirmarAcao.classList.remove('hidden')
   
       }
     }
@@ -84,15 +85,16 @@ export default class ViwerInstrutor {
   //------------------------------------------------------------------------//
 
   exibirUsuario(nomeUsuario){
-    this.btPerfil.textContent = nomeUsuario
+    this.divPerfil.textContent = nomeUsuario
   }
 
   //------------------------------------------------------------------------//
 
-  async aprensentarCursos(qtdCursos, posicaoAtual, curso) {
-    if (!curso) {
+  async apresentarCursos(qtdCursos, posicaoAtual, curso) {
+    if (curso == null) {
       console.log('Nenhum curso disponível.')
       this.divTotalCurso.textContent = 0
+
     } else {
       this.divTotalCurso.textContent = qtdCursos
       this.divSigla.textContent = curso.getSigla()
@@ -100,9 +102,6 @@ export default class ViwerInstrutor {
       this.divCargaHorariaCurso.textContent = curso.getCargaHoraria()
       this.divCategoria.textContent = curso.getCategoria()
       this.divDescricao.textContent = curso.getDescricao()
-      if (curso.getInstrutor() instanceof Promise) {
-       curso.instrutor = await curso.getInstrutor();
-      }
 
     }
     this.atualizarPaginacao(qtdCursos, posicaoAtual)
@@ -127,10 +126,11 @@ export default class ViwerInstrutor {
   //------------------------------------------------------------------------//
   
   atualizarPaginacao(qtdTotalCursos, posicaoAtual) {
+
     this.divPaginacaoCurso.textContent = ''
     const div = document.createElement('div')
 
-    if(qtdTotalCursos.lenght > 0){
+    if(qtdTotalCursos !== null){
       div.innerHTML = `${posicaoAtual} / ${qtdTotalCursos}`
     }else{
         div.innerHTML = `0 / 0`
@@ -143,8 +143,8 @@ export default class ViwerInstrutor {
   statusApresentacao() {
     this.tfConteudo.disabled = true;
   }
-
-
+  
+  //------------------------------------------------------------------------// 
   
   getCtrl() {
     return this.#ctrl
@@ -165,6 +165,57 @@ export default class ViwerInstrutor {
   }
 
   //------------------------------------------------------------------------//
+
+  async renderizarCursos(cursos){
+    
+    this.divMostrarCursos.innerHTML = "";
+
+   if(cursos == null){
+    this.divMostrarCursos.innerHTML = '<h1 class="text-2xl text-slate-600">Nenhum curso adicionado!</h1>';
+
+   }else{
+
+      for(let i = 0; i < cursos.length; i++){
+        if (cursos[i].instrutor instanceof Promise) {
+          cursos[i].instrutor = await cursos[i].instrutor;
+        }
+      }
+      cursos.forEach(curso => {
+        const div = document.createElement('div')
+        div.innerHTML = `
+        <div class="rounded-xl p-6 card-hover border border-slate-200">
+            <div class="flex items-start justify-between mb-4">
+                <div class="w-full h-24 bg-cyan-400 rounded-lg flex items-center justify-center">
+                    <h3 class="text-xl font-semibold text-gray-900">${curso.getSigla()}</h3>
+                </div>
+            </div>
+            <h3
+                class="text-xl font-semibold text-gray-900 mb-2 max-w-md overflow-hidden text-ellipsis">
+                 ${curso.getNome()}</h3>
+                 
+            <div class="mt-2">
+                <p class="text-gray-600 text-sm leading-relaxed">
+                    <span class="font-semibold text-gray-900">Desc:</span> ${curso.getDescricao()}
+                </p>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                <span class="font-semibold text-gray-900">Categoria:</span> ${curso.getCategoria()}
+                </p>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                <span class="font-semibold text-gray-900">Carga Horária:</span> ${curso.getCargaHoraria()}
+                </p>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                <span class="font-semibold text-gray-900">instrutor:</span>  ${curso.instrutor.getNome()}
+                </p>
+            </div>
+
+        </div>`;
+        this.divMostrarCursos.appendChild(div)
+    
+    })
+   }
+  }
+
+  //------------------------------------------------------------------------//
   
 }
 
@@ -178,7 +229,7 @@ function fnBProximoCurso() {
 
 //------------------------------------------------------------------------//
 
-function fnBCuroAnterior() {
+function fnBCursoAnterior() {
   this.viewer.getCtrl().apresentarCursoAnterior()
 }
 

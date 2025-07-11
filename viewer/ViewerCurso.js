@@ -1,30 +1,30 @@
 import ViewerError from "./ViewerError.js"
 import Status from "./Status.js"
 
-export default class ViewrCurso {
+export default class ViewerCurso  {
   #ctrl
   constructor(ctrl) {
     this.#ctrl = ctrl
 
-    this.btnEditar = this.obterElemento('btnEdit')
-    this.btnExcluir = this.obterElemento('btnDelete')
-    this.btnIncluir = this.obterElemento('btnAdd')
-    this.btnCancelar = this.obterElemento('btnCancel')
-    this.btnConfirmar = this.obterElemento('btnConfirme')
-    this.divBtnIniciarAcao = this.obterElemento('divBtnIniciarAcao')
-    this.divBtnConfirmarAcao = this.obterElemento('divBtnConfirmarAcao')
+    this.btEditar = this.obterElemento('btEditar')
+    this.btExcluir = this.obterElemento('btExcluir')
+    this.btIncluir = this.obterElemento('btIncluir')
+    this.btCancelar = this.obterElemento('btCancelar')
+    this.btConfirmar = this.obterElemento('btConfirmar')
+    this.divIniciarAcao = this.obterElemento('divIniciarAcao')
+    this.divConfirmarAcao = this.obterElemento('divConfirmarAcao')
     this.divTotalInstrutores = this.obterElemento('divTotalInstrutores')
     this.divTotalCurso = this.obterElemento('divTotalCurso')
     this.divNumerarCurso = this.obterElemento('divNumerarCurso')
-    this.btPerfil = this.obterElemento('btPerfil')
+    this.divPerfil = this.obterElemento('divPerfil')
     this.btLogout = this.obterElemento('btLogout')
+    this.divDialogo = this.obterElemento('divDialogo')
 
     this.divNavegacao = this.obterElemento('divNavegacao')
-    this.btnAnterior = this.obterElemento('btnBack')
-    this.btnProximo = this.obterElemento('btnNext')
-    this.divMostrarInstrutor = this.obterElemento('divMostrarInstrutor')
+    this.btAnterior = this.obterElemento('btAnterior')
+    this.btProximo = this.obterElemento('btProximo')
     this.divCbInstrutor = this.obterElemento('divCbInstrutor')
-  
+    this.divMostrarCursos = this.obterElemento('divMostrarCursos')
     this.paginacao = this.obterElemento('divPaginacao')
 
     this.tfSigla = this.obterElemento('tfSigla')
@@ -35,13 +35,13 @@ export default class ViewrCurso {
     this.cbInstrutor = this.obterElemento('cbInstrutor')
 
     this.btLogout.onclick = fnBLogout
-    this.btnProximo.onclick = avancarPaginacao
-    this.btnAnterior.onclick = voltarPaginacao
-    this.btnIncluir.onclick = iniciarInclusao
-    this.btnEditar.onclick = iniciarEdicao
-    this.btnExcluir.onclick = excluirCurso
-    this.btnCancelar.onclick = cancelarAcao
-    this.btnConfirmar.onclick = fnBtOk
+    this.btProximo.onclick = avancarPaginacao
+    this.btAnterior.onclick = voltarPaginacao
+    this.btIncluir.onclick = fnBIncluir
+    this.btEditar.onclick = fnBAlterar
+    this.btExcluir.onclick = fnBExcluir
+    this.btCancelar.onclick = fnBCancelar
+    this.btConfirmar.onclick = fnBtOk
 
   }
 
@@ -70,6 +70,7 @@ export default class ViewrCurso {
     }
   }
 
+
   //------------------------------------------------------------------------//
 
   atualizarPaginacao(qtdTotalCursos, posicaoAtual) {
@@ -78,7 +79,7 @@ export default class ViewrCurso {
 
     if(qtdTotalCursos > 0){
       div.innerHTML = `${posicaoAtual} de ${qtdTotalCursos}`
-      this.divNumerarCurso.textContent = posicaoAtual
+      this.divNumerarCurso.textContent = `Curso #${posicaoAtual}`
     }else{
       div.innerHTML = 'Nenhum curso Adicionado'
     }
@@ -87,37 +88,36 @@ export default class ViewrCurso {
 
   //------------------------------------------------------------------------//
 
+
   statusEdicao(status) {
     
     if(status === Status.EXCLUINDO){
-      this.divBtnIniciarAcao.classList.add('hidden')
+      this.divDialogo.classList.remove('hidden')
+      this.divIniciarAcao.classList.add('hidden')
       this.divNavegacao.classList.add('hidden')
-      this.divBtnConfirmarAcao.classList.remove('hidden')
-
+      this.divConfirmarAcao.classList.remove('hidden')
     }
     
     if (status === Status.NAVEGANDO) {
       this.desabilitarInputs(true)
-      this.divMostrarInstrutor.classList.remove('hidden')
-      this.divBtnIniciarAcao.classList.remove('hidden')
+      this.divDialogo.classList.add('hidden')
+      this.divIniciarAcao.classList.remove('hidden')
       this.divNavegacao.classList.remove('hidden')
-      this.divBtnConfirmarAcao.classList.add('hidden')
+      this.divConfirmarAcao.classList.add('hidden')
 
     } else if (status === Status.ALTERANDO || status === Status.INCLUINDO) {
       this.desabilitarInputs(false)
-      this.divBtnIniciarAcao.classList.add('hidden')
+      this.divIniciarAcao.classList.add('hidden')
       this.divNavegacao.classList.add('hidden')
-      this.divBtnConfirmarAcao.classList.remove('hidden')
+      this.divConfirmarAcao.classList.remove('hidden')
       this.divCbInstrutor.classList.add('hidden')
       
       if (status === Status.INCLUINDO) {
         this.limparCampos()
-        this.divMostrarInstrutor.classList.add('hidden')
         this.divCbInstrutor.classList.remove('hidden')
       }
       if(status == Status.ALTERANDO){
         this.tfSigla.disabled = true
-        this.divMostrarInstrutor.classList.add('hidden')
         this.divCbInstrutor.classList.remove('hidden')
       }
     }
@@ -126,11 +126,12 @@ export default class ViewrCurso {
   //------------------------------------------------------------------------//
 
   exibirUsuario(nomeUsuario){
-    this.btPerfil.textContent = nomeUsuario
+    this.divPerfil.textContent = nomeUsuario
   }
+  
   //------------------------------------------------------------------------//
 
-  desabilitarInputs(isDisabled) {
+  desabilitarInputs(habilitar) {
     [
       this.tfSigla,
       this.tfNome,
@@ -140,7 +141,7 @@ export default class ViewrCurso {
       this.cbInstrutor
     ]
       .forEach(input => {
-        input.disabled = isDisabled;
+        input.disabled = habilitar;
       });
   }
 
@@ -167,9 +168,9 @@ export default class ViewrCurso {
 
   //------------------------------------------------------------------------//
 
-  async aprensentarCursos(qtdCursos, posicaoAtual, curso) {
-
-    if (curso.length <= 0) {
+  async apresentarCursos(qtdCursos, posicaoAtual, curso) {
+  
+    if (curso == null) {
       console.log('Nenhum curso disponível.')
       this.divTotalCurso.textContent = 0
       this.limparCampos()
@@ -177,6 +178,11 @@ export default class ViewrCurso {
       this.#montarCbInstrutores("Selecione o instrutor")
 
     } else {
+
+      if (curso.getInstrutor() instanceof Promise) {
+        curso.instrutor = await curso.getInstrutor();
+      }
+
       this.divTotalCurso.textContent = qtdCursos
       this.tfSigla.value = curso.getSigla()
       this.tfNome.value = curso.getNome()
@@ -184,14 +190,9 @@ export default class ViewrCurso {
       this.tfCargaHoraria.value = curso.getCargaHoraria()
       this.tfCategoria.value = curso.getCategoria()
       this.cbInstrutor.value = curso.getInstrutor()
-
-      if (curso.getInstrutor() instanceof Promise) {
-        curso.instrutor = await curso.getInstrutor();
-      }
       this.#montarCbInstrutores(curso.instrutor.getEmail())
     
     }
-
     this.atualizarPaginacao(qtdCursos, posicaoAtual)
    
   }
@@ -215,9 +216,63 @@ export default class ViewrCurso {
     elemento.viewer = this;
     return elemento;
   }
+  
+  //------------------------------------------------------------------------//
+
+  async renderizarCursos(cursos){
+    console.log(cursos);
+    
+    console.log(typeof cursos, cursos == null);
+    
+    this.divMostrarCursos.innerHTML = "";
+
+   if(cursos == null){
+    this.divMostrarCursos.innerHTML = '<h1 class="text-2xl text-slate-900">Nenhum curso adicionado!</h1>';
+
+   }else{
+
+      for(let i = 0; i < cursos.length; i++){
+        if (cursos[i].instrutor instanceof Promise) {
+          cursos[i].instrutor = await cursos[i].instrutor;
+        }
+      }
+
+    cursos.forEach(curso => {
+      const div = document.createElement('div')
+      div.innerHTML = `
+       <div class="rounded-xl p-6 card-hover border border-slate-200">
+          <div class="flex items-start justify-between mb-4">
+              <div class="w-full h-24 bg-cyan-400 rounded-lg flex items-center justify-center">
+                  <h3 class="text-xl font-semibold text-gray-900">${curso.getSigla()}</h3>
+              </div>
+          </div>
+          <h3
+              class="text-xl font-semibold text-gray-900 mb-2 max-w-md overflow-hidden text-ellipsis">
+              ${curso.getNome()}</h3>
+              
+              
+          <div class="mt-2">
+              <p class="text-gray-600 text-sm leading-relaxed">
+                <span class="font-semibold text-gray-900">Descrição:</span> ${curso.getDescricao()}</p>
+              <p class="text-gray-600 text-sm leading-relaxed">
+                <span class="font-semibold text-gray-900">Categoria:</span> ${curso.getCategoria()}
+              </p>
+              <p class="text-gray-600 text-sm leading-relaxed">
+                <span class="font-semibold text-gray-900">Carga Horária:</span> ${curso.getCargaHoraria()}
+              </p>
+              <p class="text-gray-600 text-sm leading-relaxed">
+                <span class="font-semibold text-gray-900">instrutor:</span>  ${curso.instrutor.getNome()}
+              </p>
+          </div>
+
+      </div>`;
+      this.divMostrarCursos.appendChild(div)
+    
+    })
+   }
+  }
 
   //------------------------------------------------------------------------//
-    
   
 }
 
@@ -237,25 +292,25 @@ function voltarPaginacao() {
 
 //------------------------------------------------------------------------//
 
-function iniciarInclusao() {
+function fnBIncluir() {
   this.viewer.getCtrl().iniciarIncluir()
 }
 
 //------------------------------------------------------------------------//
 
-function iniciarEdicao() {
+function fnBAlterar() {
   this.viewer.getCtrl().iniciarAlterar()
 }
 
 //------------------------------------------------------------------------//
 
-function excluirCurso() {
+function fnBExcluir() {
   this.viewer.getCtrl().iniciarExcluir();
 }
 
 //------------------------------------------------------------------------//
 
-function cancelarAcao() {
+function fnBCancelar() {
   this.viewer.getCtrl().cancelar()
 }
 

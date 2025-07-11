@@ -1,5 +1,4 @@
-<<<<<<< HEAD:REGRAS_FIREBASE.txt
-	
+
 {
     "rules": {
         ".read": "auth.token.isAdmin == true || root.child('usuarios').child(auth.uid).child('funcao').val() === 'ADMIN'",
@@ -79,4 +78,4 @@
 }
 =======
 
->>>>>>> 40a454dfe08cc63f89959cb6b57105f44de93bfd:README.md
+

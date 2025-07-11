@@ -3,12 +3,12 @@ import {
   signOut
 } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
 
-import ViwerInstrutor from "../view/ViewerInstrutor.js";
+import ViewerInstrutor from "../viewer/ViewerInstrutor.js";
 import CursoDAO from '../model/DAO/CursoDAO.js';
 import InstrutorDAO from '../model/DAO/InstrutorDAO.js'
 import Curso from "../model/Curso.js";
 import Instrutor from "../model/Instrutor.js";
-import Status from "../view/Status.js";
+import Status from "../viewer/Status.js";
 import CursoDTO from '../model/DTO/CursoDTO.js';
 import Aula from "../model/Aula.js";
 import AulaDAO from "../model/DAO/AulaDAO.js";
@@ -26,13 +26,13 @@ export default class CtrlManterInstrutores {
 
   constructor(usuario) {
     this.#usuarioLogado = usuario
-    this.#viewer = new ViwerInstrutor(this);
+    this.#viewer = new ViewerInstrutor(this);
     this.#daoInstrutor = new InstrutorDAO()
     this.#daoCurso = new CursoDAO()
     this.#daoAula = new AulaDAO()
-    this.#atualizarContextoNavegacao()
     this.#posAtualCurso = 1; 
     this.#posAtualAulas = 1;
+    this.#atualizarContextoNavegacao()
   }
 
   //-----------------------------------------------------------------------------------------//
@@ -47,20 +47,24 @@ export default class CtrlManterInstrutores {
 
     this.#viewer.statusEdicao(Status.NAVEGANDO)
     this.#viewer.statusApresentacao()
+
     const conjCursos = await this.#daoCurso.obterTodosCursosDoInstrutor(this.#usuarioLogado.uid)
     this.#viewer.exibirUsuario(this.#usuarioLogado.email)  
     
-    if(conjCursos.length == 0){
+    if(!conjCursos || conjCursos.length == 0){
       this.#posAtualCurso = 0;
-      // this.#viewer.apresentar(0, 0, [])
-      this.#viewer.aprensentarCursos([])
-      this.#apresentarAulasDoCurso(0, 0, null)
+      this.#viewer.renderizarCursos(null)
+
+      this.#viewer.apresentarCursos(null)
+      this.#apresentarAulasDoCurso(null)
+      
     }else{
       if(this.#posAtualCurso == 0 || this.#posAtualCurso > conjCursos.length)
         this.#posAtualCurso = 1;
-        
+      
+        this.#viewer.renderizarCursos(conjCursos)
         this.#apresentarAulasDoCurso(conjCursos[this.#posAtualCurso - 1].getSigla())
-        this.#viewer.aprensentarCursos(conjCursos.length, this.#posAtualCurso, new CursoDTO(conjCursos[this.#posAtualCurso - 1]))
+        this.#viewer.apresentarCursos(conjCursos.length, this.#posAtualCurso, new CursoDTO(conjCursos[this.#posAtualCurso - 1]))
     }
   }
   
@@ -70,7 +74,7 @@ export default class CtrlManterInstrutores {
 
     const conjAulas = await  this.#daoAula.obterAulasPelaSiglaDoCurso(sigla)
     
-    if (conjAulas.length == 0) {
+    if (conjAulas.length == 0 || sigla == null) {
       this.#posAtualAulas = 0;
       this.#viewer.apresentarAulas(0,0, null)
     } else {
@@ -114,8 +118,7 @@ export default class CtrlManterInstrutores {
       if (this.#posAtualAulas < conjAulas.length) {
         this.#posAtualAulas++;
       }
-      
-      console.log(this.#posAtualAulas);
+
       this.#apresentarAulasDoCurso(cursoAtual.getSigla());
     }
   }
@@ -133,19 +136,10 @@ export default class CtrlManterInstrutores {
       const cursoAtual = conjCursos[this.#posAtualCurso - 1];
       this.#apresentarAulasDoCurso(cursoAtual.getSigla());
     }
-    console.log(this.#posAtualAulas);
+
   }
 
 
-  //-----------------------------------------------------------------------------------------//
-  
-  iniciarAlterar() {
-    this.status = Status.ALTERANDO;
-    this.#viewer.statusEdicao(Status.ALTERANDO); 
-    
-    this.efetivar = this.incluir;
-  }
-  
   //-----------------------------------------------------------------------------------------//
   
   iniciarAlterar() {
@@ -156,22 +150,12 @@ export default class CtrlManterInstrutores {
   }
   
   //-----------------------------------------------------------------------------------------//
-
+  
   cancelar() {
     this.#atualizarContextoNavegacao();
   }
 
   //-----------------------------------------------------------------------------------------//
-
-  atualizarContextoNavegacao(position){
-      this.#posAtualCurso = position
-  }
-
-  iniciarAlterar(){
-      this.#status = Status.ALTERANDO
-      this.#viewer.statusEdicao(this.#status)
-      this.efetivar = this.alterar;
-  }
 
   iniciarIncluir(){
     this.#status = Status.INCLUINDO
@@ -183,35 +167,29 @@ export default class CtrlManterInstrutores {
 
   // numOrdem, conteudo, curso, instrutor
   async incluir(conteudo, siglaCurso) {
-
     try {     
       const cursoExiste = await this.#daoCurso.obterCursoPelaSigla(siglaCurso)
-      
       if(cursoExiste == null){
         alert('Curso não encontrado!')
         return;
       }
 
-      const numOrdemAtual = await this.#daoAula.obterAulasPelaSiglaDoCurso(siglaCurso)
-      
-      cursoExiste.instrutor = await cursoExiste.instrutor
-      console.log(cursoExiste.instrutor);
-      
       const instrutorExiste = await this.#daoInstrutor.obterInstrutorPeloUid(this.#usuarioLogado.uid)
-      console.log(instrutorExiste);
-      
       if(instrutorExiste == null){
-        alert('Curso não encontrado!')
+        alert('Instrutor não encontrado!')
         return;
       }
-      const instrutor = new Instrutor(instrutorExiste.nome, instrutorExiste.email, instrutorExiste.fone)
-      const curso = new Curso(cursoExiste.sigla, cursoExiste.nome, cursoExiste.descricao, cursoExiste.cargaHoraria, cursoExiste.categoria, cursoExiste.instrutor)
-      const aula = new Aula(parseInt(numOrdemAtual.length), conteudo, curso, instrutor)
 
+      const instrutor = new Instrutor(instrutorExiste.nome, instrutorExiste.email, instrutorExiste.fone)
+      const curso = new Curso(cursoExiste.sigla, cursoExiste.nome, cursoExiste.descricao, cursoExiste.cargaHoraria, cursoExiste.categoria, instrutor)
+      
+      const numOrdemAtual = await this.#daoAula.obterAulasPelaSiglaDoCurso(siglaCurso)
+      const aula = new Aula(parseInt(numOrdemAtual.length), conteudo, curso, instrutor)
       const salvarAula = await this.#daoAula.incluir(aula)
-        
+
       if(salvarAula){
         alert("Aula salva com sucesso!")
+        this.#posAtualAulas++
         this.#atualizarContextoNavegacao()
       }
 
@@ -220,7 +198,7 @@ export default class CtrlManterInstrutores {
     }
   }
 
-  //-----------------------------------------------------------------------------------------//
+  //----------------------------------------------------------------------------------------//
 
   async alterar(conteudo, siglaCurso) {
     try {     
@@ -239,9 +217,10 @@ export default class CtrlManterInstrutores {
       console.log(instrutorExiste);
       
       if(instrutorExiste == null){
-        alert('Curso não encontrado!')
+        alert('Instrutor não encontrado!')
         return;
       }
+      
       const instrutor = new Instrutor(instrutorExiste.nome, instrutorExiste.email, instrutorExiste.fone)
       const curso = new Curso(cursoExiste.sigla, cursoExiste.nome, cursoExiste.descricao, cursoExiste.cargaHoraria, cursoExiste.categoria, cursoExiste.instrutor)
       const aula = new Aula(numOrdemAtual - 1, conteudo, curso, instrutor)
@@ -271,8 +250,4 @@ export default class CtrlManterInstrutores {
   }
  
   //-----------------------------------------------------------------------------------------//
-
-  cancelar() {
-    this.#atualizarContextoNavegacao();
-  }
 }

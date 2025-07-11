@@ -2,12 +2,12 @@
 //---- Importando as funções associadas à autenticação (Versão 11.5.0 do Firebase) ----//
 import { signOut } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
 
-import ViwerCurso from "../view/ViewerCurso.js";
+import ViewerCurso from "../viewer/ViewerCurso.js";
 import CursoDAO from '../model/DAO/CursoDAO.js';
 import InstrutorDAO from '../model/DAO/InstrutorDAO.js'
 import Curso from "../model/Curso.js";
 import Instrutor from "../model/Instrutor.js";
-import Status from "../view/Status.js";
+import Status from "../viewer/Status.js";
 import CursoDTO from '../model/DTO/CursoDTO.js';
 
 export default class CtrlManterCursos {
@@ -20,11 +20,11 @@ export default class CtrlManterCursos {
 
   constructor(usuario) {
     this.#usuarioLogado = usuario
-    this.#viewer = new ViwerCurso(this);
+    this.#viewer = new ViewerCurso(this);
     this.#daoInstrutor = new InstrutorDAO()
     this.#daoCurso = new CursoDAO()
-    this.#atualizarContextoNavegacao()
     this.#posAtual = 1;
+    this.#atualizarContextoNavegacao()
   }
 
   //-----------------------------------------------------------------------------------------//
@@ -43,34 +43,18 @@ export default class CtrlManterCursos {
     
     this.#viewer.exibirUsuario(this.#usuarioLogado.email)
     let conjCursos = await this.#daoCurso.obterCursos();
-
+    
     if(conjCursos.length == 0) {
-
+      
+      this.#viewer.renderizarCursos(null)
       this.#posAtual = 0;
-      this.#viewer.aprensentarCursos(0, 0, [])
+      this.#viewer.apresentarCursos(0, 0, null)
     }else{
       if(this.#posAtual == 0 || this.#posAtual > conjCursos.length)
         this.#posAtual = 1;
-        this.#viewer.aprensentarCursos(conjCursos.length, this.#posAtual, new CursoDTO(conjCursos[this.#posAtual - 1]))
+        this.#viewer.renderizarCursos(conjCursos)
+        this.#viewer.apresentarCursos(conjCursos.length, this.#posAtual, new CursoDTO(conjCursos[this.#posAtual - 1]))
     }
-  }
-  
-  //-----------------------------------------------------------------------------------------//
-  
-  iniciarAlterar() {
-    this.status = Status.ALTERANDO;
-    this.#viewer.statusEdicao(Status.ALTERANDO); 
-    
-    this.efetivar = this.incluir;
-  }
-  
-  //-----------------------------------------------------------------------------------------//
-  
-  iniciarAlterar() {
-    this.status = Status.ALTERANDO;
-    this.#viewer.statusEdicao(Status.ALTERANDO); 
-    
-    this.efetivar = this.alterar;
   }
   
   //-----------------------------------------------------------------------------------------//
@@ -97,27 +81,30 @@ export default class CtrlManterCursos {
 
   //-----------------------------------------------------------------------------------------//
 
-  atualizarContextoNavegacao(position){
-      this.#posAtual = position
-  }
-
-  iniciarAlterar(){
-      this.#status = Status.ALTERANDO
-      this.#viewer.statusEdicao(this.#status)
-      this.efetivar = this.alterar;
-  }
-
   iniciarIncluir(){
     this.#status = Status.INCLUINDO
     this.#viewer.statusEdicao(this.#status) 
+
     this.efetivar = this.incluir;
   }
   
+    
   //-----------------------------------------------------------------------------------------//
+  
+  iniciarAlterar() {
+    this.status = Status.ALTERANDO;
+    this.#viewer.statusEdicao(Status.ALTERANDO); 
+    
+    this.efetivar = this.alterar;
+  }
+  
+  //-----------------------------------------------------------------------------------------//
+
   
   iniciarExcluir() {
     this.#status = Status.EXCLUINDO;
     this.#viewer.statusEdicao(Status.EXCLUINDO);
+
     this.efetivar = this.excluir;
   }
 
@@ -232,9 +219,5 @@ export default class CtrlManterCursos {
   }
  
   //-----------------------------------------------------------------------------------------//
-
-  cancelar() {
-    this.#atualizarContextoNavegacao();
-  }
 
 }
