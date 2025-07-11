@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
@@ -35,61 +35,36 @@
                 <!-- Right Icons -->
                 <div class="flex items-center space-x-4">
                     <div class="hidden md:block">
-                        <button
-                            class="bg-black hover:bg-pink-600 text-white px-4 py-1.5 rounded-full font-medium transition flex items-center">
+                        <button id="btLogout" class="bg-black hover:bg-red-600 text-white font-thin
+                         px-4 py-1.5 rounded-full font-medium transition flex items-center">
                             <i class="fas fa-sign-out-alt"></i> Logout
                         </button>
                     </div>
                     <div class="md:hidden">
-                        <button id="mobile-menu-button" class="text-black text-2xl">
+                        <button id="btMenuToggle" class="text-black text-2xl">
                             <i class="fas fa-bars"></i>
                         </button>
                     </div>
                 </div>
             </div>
 
-
-            <!-- Navigation Links -->
-            <div class="hidden md:flex items-center justify-between py-2 border-t border-slate-200 ">
-                <div class="flex space-x-1">
+            <div id="navContainer"
+                class="hidden md:flex flex-col md:flex-row items-center justify-between gap-2 md:gap-4 py-2 border-t border-slate-200">
+                <div class="flex flex-col md:flex-row w-full md:w-auto items-center gap-1 md:space-x-1">
                     <a href="#" class="nav-link px-4 py-2 active font-medium" data-section="home">Início</a>
                     <a href="#" class="nav-link px-4 py-2 font-medium" data-section="all-courses">Matrículas</a>
-                    <a href="#" class="nav-link px-4 py-2 font-medium" data-section="profile">Perfil</a>
-                    <a href="#" class="nav-link px-4 py-2 font-medium" data-section="help">Ajuda</a>
-                </div>
-                <div>
                 </div>
             </div>
-            <!-- Navigation Links -->
 
         </div>
 
-                <!-- Mobile Menu -->
-        <div id="mobile-menu" class="mobile-menu md:hidden bg-white">
-            <div class="px-4 pt-2 pb-4 space-y-1">
-                <a href="#" class="block px-3 py-2 rounded-md font-medium text-black" data-section="home">Inicio</a>
-                <a href="#" class="block px-3 py-2 rounded-md font-medium text-black" data-section="all-courses">Cursos</a></a>
-                <a href="#" class="block px-3 py-2 rounded-md font-medium text-black" data-section="profile">Perfil</a>
-                <a href="#" class="block px-3 py-2 rounded-md font-medium text-black" data-section="help">Ajuda</a>
-                <div class="pt-2 border-t border-white border-opacity-20">
-                    <button id="btLogout" class="bg-black hover:bg-red-600 text-white font-thin
-                         px-4 py-1.5 rounded-full font-medium transition flex items-center">
-                            <i class="fas fa-sign-out-alt"></i> Logout
-                        </button>
-                </div>
-            </div>
-        </div>
     </nav>
-
 
 
 
 
     <!-- Conteúdo Principal -->
     <div class="container mx-auto px-4 py-8 py-2 md:mt-28 mt-16">
-
-
-
         <!-- Seção Home -->
         <section id="home-section" class="section active">
             <!-- Main Content -->
@@ -97,80 +72,62 @@
                 class="flex-1 max-w-7xl mx-auto px-4 px-5 flex-row transition-transform duration-300 ease-in-out">
 
                 <!-- NOME DO ALUNO -->
-                <div class="flex justify-start items-center text-center gap-2 mb-5">
+                <div class="md:flex flex-column md:justify-start justify-center items-center mt-5 text-center gap-2">
                     <div
                         class="flex justify-center items-center text-center rounded-full bg-black p-5 h-5 w-5 text-white">
                         <p>AL</p>
                     </div>
-                      <h1>Olá, seja bem-vindo(a), <button id="divPerfil" class="text-cyan-600 text-decoration"></button></h1>
+                    <h1>Olá, seja bem-vindo(a), <button id="divPerfil" class="text-cyan-600 text-decoration"></button>
+                    </h1>
                 </div>
                 <!-- NOME DO ALUNO -->
 
 
+
+
                 <!-- HERO DA PÁGINA -->
-            
+                <div class="flex flex-col rounded-md">
 
-                <div class="flex mt-5 flex-col rounded-md border border-slate-200 ">
-
-                    <div class="px-5 h-full sm:mt-10 flex flex-col space-y-4">
+                    <div class="h-full sm:mt-5 flex flex-col space-y-4">
                         <div class="flex justify-between items-center">
-                            <div class="text-slate-900 text-lg font-bold" id="divNumerarCurso"></div>
+                            <div class="text-slate-900 text-2xl font-bold" id="divNumerarCurso"></div>
                         </div>
 
                         <!-- SIGLA -->
-                        <div class="flex flex-col">
-                            <label for="tfSigla" class="mb-1 text-md">Sigla do Curso</label>
-                            <input type="text" id="tfSigla" class="w-full bg-gray-50 border border-slate-200 p-2"
-                                placeholder="Ex: DEV101" required>
-                        </div>
+                        <h1 id="tfSigla" class="text-2xl font-semibold text-slate-800">
+                            DEV101
+                        </h1>
 
                         <!-- NOME -->
-                        <div class="flex flex-col">
-                            <label for="tfNome" class="mb-1 text-md">Nome do Curso</label>
-                            <input type="text" id="tfNome" class="w-full bg-gray-50 border border-slate-200 p-2"
-                                placeholder="Ex: Desenvolvimento Web Moderno" required>
-                        </div>
+                        <h2 id="tfNome" class="text-xl font-semibold text-slate-700">
+                            Desenvolvimento Web Moderno
+                        </h2>
 
                         <!-- DESCRIÇÃO -->
-                        <div class="flex flex-col">
-                            <label for="tfDescricao" class="mb-1 text-md">Descrição</label>
-                            <textarea id="tfDescricao" class="w-full bg-gray-50 border border-slate-200 h-20 p-2"
-                                placeholder="Descreva o curso em detalhes..." required></textarea>
-                        </div>
+                        <p id="tfDescricao" class="text-base text-slate-600">
+                            Descreva o curso em detalhes...
+                        </p>
 
                         <!-- CATEGORIA E CARGA -->
                         <div class="flex w-full gap-5">
-                            <!-- Categoria -->
-                            <div class="w-full flex flex-col">
-                                <label for="tfCategoria" class="mb-1 text-md">Categoria</label>
-                                <input type="text" id="tfCategoria"
-                                    class="w-full bg-gray-50 border border-slate-200 p-2" placeholder="Ex: Tecnologia"
-                                    required>
-                            </div>
-
-                            <!-- Carga Horária -->
-                            <div class="w-full flex flex-col">
-                                <label for="tfCargaHoraria" class="mb-1 text-md">Carga Horária (horas)</label>
-                                <input type="number" id="tfCargaHoraria"
-                                    class="w-full bg-gray-50 border border-slate-200 p-2" min="1" placeholder="Ex: 40"
-                                    required>
-                            </div>
+                            <span id="tfCategoria" class="text-base text-slate-700">
+                                Tecnologia
+                            </span>
+                            <span id="tfCargaHoraria" class="text-base text-slate-700">
+                                40 horas
+                            </span>
                         </div>
-
-
                     </div>
 
-                    <div id="divNavegacao" class="flex items-center justify-between w-full p-5 mb-5">
-                        <button id="btAnterior" class="bg-black text-white text-sm rounded-lg  px-6 py-3">Anterior</button>
-                        
-                        <div id="divPaginacao" class="flex items-center gap-2 ">
-                        </div>
-                        <button id="btProximo" class="bg-black text-white text-sm rounded-lg  px-6 py-3">Próximo</button>
+                    <div id="divNavegacao" class="flex items-center justify-between w-full py-10">
+                        <button id="btAnterior"
+                            class="bg-black text-white text-sm rounded-lg px-6 py-3">Anterior</button>
+                        <div id="divPaginacao" class="flex items-center gap-2"></div>
+                        <button id="btProximo" class="bg-black text-white text-sm rounded-lg px-6 py-3">Próximo</button>
                     </div>
 
                 </div>
                 <!-- HERO DA PÁGINA -->
-
 
 
 
@@ -254,71 +211,7 @@
 
                 <!-- Cards Container -->
                 <div id="divMostrarCursos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-
-                      <!-- Card 1 - Modelagem de Dados -->
-                    <div class="rounded-xl p-6 card-hover border border-slate-200">
-                        <div class="flex items-start justify-between mb-4">
-                            <div class="w-full h-24 bg-cyan-400 rounded-lg flex items-center justify-center">
-                                <h3 class="text-xl font-semibold text-gray-900">MDA</h3>
-                            </div>
-                        </div>
-                        <h3
-                            class="text-xl font-semibold text-gray-900 mb-3 truncate max-w-md overflow-hidden whitespace-nowrap text-ellipsis">
-                            Modelagem de dados Avançado DB2 ...</h3>
-                        <p class="text-gray-600 text-sm mb-6 leading-relaxed">
-                            O assunto modelagem de dados é bem relevante, principalmente, nos dias de
-                        </p>
-
-                        <button class="w-full text-sm px-4 py-2 rounded-lg bg-black text-white transition">
-                            Ver detalhes
-                        </button>
-                    </div>
-
-
-
-                    <!-- Card 2 - Implementando Banco de Dados -->
-                    <div class="rounded-xl p-6 card-hover border border-slate-200">
-                         <div class="flex items-start justify-between mb-4">
-                            <div class="w-full h-24 bg-cyan-400 rounded-lg flex items-center justify-center">
-                                <h3 class="text-xl font-semibold text-gray-900">DBA</h3>
-                            </div>
-                        </div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Introdução ao banco de dados</h3>
-
-                        <p class="text-gray-600 text-sm mb-6 leading-relaxed">
-                            Neste curso, você verá uma introdução sobre a implementação de banco de dados
-                        </p>
-                        <button class="w-full text-sm px-4 py-2 rounded-lg bg-black text-white transition">
-                            Ver detalhes
-                        </button>
-                    </div>
-
-
-
-                    <!-- Card 3 - Introdução à Análise de Dados -->
-                    <div class="rounded-xl p-6 card-hover border border-slate-200">
-                         <div class="flex items-start justify-between mb-4">
-                            <div class="w-full h-24 bg-cyan-400 rounded-lg flex items-center justify-center">
-                                <h3 class="text-xl font-semibold text-gray-900">BSI</h3>
-                            </div>
-                        </div>
-
-                        <h3 class="text-xl font-semibold text-gray-900 mb-3">
-                            Introdução a análise de dados ...
-                        </h3>
-                        <p class="text-gray-600 text-sm mb-6 leading-relaxed">
-                            Neste curso, você conhecerá as principais atribuições de um analista de dados, suas
-                            habilidades,
-                            tarefas e...
-                        </p>
-
-                        <button class="w-full text-sm px-4 py-2 rounded-lg bg-black text-white transition">
-                            Ver detalhes
-                        </button>
-                    </div>
-
-
-
+                    Carregando Cursos...
                 </div>
                 <!-- Cards Container -->
 
@@ -350,70 +243,7 @@
                     </h2>
                 </div>
 
-                <!-- Cards Container -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-
-                    <!-- Card 1 - Modelagem de Dados -->
-                    <div class="rounded-xl p-6 card-hover border border-slate-200">
-                        <div class="flex items-start justify-between mb-4">
-                            <div class="w-full h-24 bg-cyan-400 rounded-lg flex items-center justify-center">
-                                <h3 class="text-xl font-semibold text-gray-900">MDA</h3>
-                            </div>
-                        </div>
-                        <h3
-                            class="text-xl font-semibold text-gray-900 mb-3 truncate max-w-md overflow-hidden whitespace-nowrap text-ellipsis">
-                            Modelagem de dados Avançado DB2 ...</h3>
-                        <p class="text-gray-600 text-sm mb-6 leading-relaxed">
-                            O assunto modelagem de dados é bem relevante, principalmente, nos dias de
-                        </p>
-
-                        <button class="w-full text-sm px-4 py-2 rounded-lg bg-black text-white transition">
-                            Ver detalhes
-                        </button>
-                    </div>
-
-
-
-                    <!-- Card 2 - Implementando Banco de Dados -->
-                    <div class="rounded-xl p-6 card-hover border border-slate-200">
-                         <div class="flex items-start justify-between mb-4">
-                            <div class="w-full h-24 bg-cyan-400 rounded-lg flex items-center justify-center">
-                                <h3 class="text-xl font-semibold text-gray-900">DBA</h3>
-                            </div>
-                        </div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Introdução ao banco de dados</h3>
-
-                        <p class="text-gray-600 text-sm mb-6 leading-relaxed">
-                            Neste curso, você verá uma introdução sobre a implementação de banco de dados
-                        </p>
-                        <button class="w-full text-sm px-4 py-2 rounded-lg bg-black text-white transition">
-                            Ver detalhes
-                        </button>
-                    </div>
-
-
-
-                    <!-- Card 3 - Introdução à Análise de Dados -->
-                    <div class="rounded-xl p-6 card-hover border border-slate-200">
-                         <div class="flex items-start justify-between mb-4">
-                            <div class="w-full h-24 bg-cyan-400 rounded-lg flex items-center justify-center">
-                                <h3 class="text-xl font-semibold text-gray-900">BSI</h3>
-                            </div>
-                        </div>
-
-                        <h3 class="text-xl font-semibold text-gray-900 mb-3">
-                            Introdução a análise de dados ...
-                        </h3>
-                        <p class="text-gray-600 text-sm mb-6 leading-relaxed">
-                            Neste curso, você conhecerá as principais atribuições de um analista de dados, suas
-                            habilidades,
-                            tarefas e...
-                        </p>
-
-                        <button class="w-full text-sm px-4 py-2 rounded-lg bg-black text-white transition">
-                            Ver detalhes
-                        </button>
-                    </div>
+                    <h1 class="text-3xl text-slate-900">Nenhuma Matrícula efetuada...</h1>
 
                 </div>
             </div>
@@ -421,64 +251,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!-- Seção Perfil -->
-        <section id="profile-section" class="section flex-1 max-w-7xl mx-auto px-4 px-5 flex-row transition-transform duration-300 ease-in-out">
-            <div class="flex justify-between items-center my-6">
-                <h1 class="text-2xl font-bold text-gray-800">Seu Perfil</h1>
-            </div>
-
-            <div>
-                <form class="flex flex-col space-y-5 rounded-md border border-slate-200 ">
-                    <div class="p-5 h-full flex flex-col space-y-4">
-
-                        <!-- NOME -->
-                        <div class="flex flex-col">
-                            <label for="tfNomeUsuario" class="mb-1 text-md">Nome Completo</label>
-                            <input type="text" id="tfNomeUsuario" class="w-full bg-gray-50 border border-slate-200 p-2"
-                                placeholder="Seu nome completo" required>
-                        </div>
-
-                        <!-- EMAIL -->
-                        <div class="flex flex-col">
-                            <label for="tfEmailUsuario" class="mb-1 text-md">E-mail</label>
-                            <input type="email" id="tfEmailUsuario" class="w-full bg-gray-50 border border-slate-200 p-2"
-                                placeholder="exemplo@dominio.com" required>
-                        </div>
-
-                        <!-- TELEFONE -->
-                        <div class="flex flex-col">
-                            <label for="tfTelefoneUsuario" class="mb-1 text-md">Telefone</label>
-                            <input type="tel" id="tfTelefoneUsuario" class="w-full bg-gray-50 border border-slate-200 p-2"
-                                placeholder="(00) 00000-0000" required>
-                        </div>
-
-                    </div>
-
-                    <!-- BOTÕES -->
-                    <div class="form-footer flex gap-4 px-5 pb-10 justify-end">
-                        <button type="submit" id="btAtualizarPerfil" class="text-sm px-4 py-2 rounded-lg bg-black text-white transition">
-                            Atualizar Dados <i class="fas fa-save"></i>
-                        </button>
-                        <button type="reset" id="btLimparPerfil" class="border border-slate-200 text-sm px-4 py-2 rounded-lg bg-pink-500 text-white transition">
-                            Limpar Campos <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </section>
 
     </div>
 
@@ -525,41 +297,37 @@
 
 
     <script>
+        const btMenuToggle = document.getElementById('btMenuToggle');
+        const navContainer = document.getElementById('navContainer');
 
-        document.addEventListener('DOMContentLoaded', function () {
-            // Navegação entre seções
-            const navLinks = document.querySelectorAll('.nav-link');
-            const sections = document.querySelectorAll('.section');
+        btMenuToggle.addEventListener('click', () => {
+            navContainer.classList.toggle('hidden');
+        });
 
-            navLinks.forEach(link => {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.section');
 
-                    // Remover classe active de todos os links
-                    navLinks.forEach(item => {
-                        item.classList.remove('active');
-                    });
+        navLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
 
-                    // Adicionar classe active ao link clicado
-                    this.classList.add('active');
-
-                    // Obter a seção alvo
-                    const targetSection = this.getAttribute('data-section');
-
-                    // Esconder todas as seções
-                    sections.forEach(section => {
-                        section.classList.remove('active');
-                    });
-
-                    // Mostrar a seção alvo
-                    document.getElementById(`${targetSection}-section`).classList.add('active');
+                navLinks.forEach(item => {
+                    item.classList.remove('active');
                 });
-            });
 
+                this.classList.add('active');
+                const targetSection = this.getAttribute('data-section');
+
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+
+                document.getElementById(`${targetSection}-section`).classList.add('active');
+            });
         });
 
     </script>
     <script type="module" src="../controller/CtrlSessao.js"></script>
 </body>
 
-</html> -->
+</html>

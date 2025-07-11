@@ -13,7 +13,7 @@ import DaoUsuario from "../model/DAO/UsuarioDAO.js";
 import Usuario from "/model/Usuario.js";
 import CtrlManterCursos from "./CtrlManterCurso.js";
 import CtrlManterInstrutores from "./CtrlManterInstrutor.js";
-// import CtrlManterAlunos from "./CtrlManterAluno.js";
+import CtrlManterAlunos from "./CtrlManterAluno.js";
 const swal = new Function("json,th", "swal(json).then(th)");
 
 
@@ -46,7 +46,7 @@ export default class CtrlSessao {
       else if(document.URL.includes("initAluno.html")) {
         // falta o CTRL do aluno
         // ainda to fzd
-        // this.ctrlAtual = new CtrlManterAlunos(this.usuario)
+        this.ctrlAtual = new CtrlManterAlunos(this.usuario)
       }
 
     } catch(e) {
