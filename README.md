@@ -22,6 +22,12 @@ aluno: initAluno.html(ler cursos)
 intrutor: initInstrutor.html(gerenciar aulas)
 
 
+AS CLASSES SÃO INICIADAS NO CtrlSessao
 
+passei o this.usuario para o construtor das classes controller que preciso.
+pois precisava saber quem é o usuário logado para implementar algumas lógicas
+EXEMPLO: o instrutor só pode ler os cursos que ele é o instrutor
+então passei o this.usuario(que vem da CtrlSessao) para o construtor
+para saber o uid do instrutor
 
 
