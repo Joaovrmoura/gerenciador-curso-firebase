@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -85,20 +86,19 @@
 
 
                 <!-- HERO DA PÁGINA -->
-                <div class="flex flex-col rounded-md border border-slate-200 h-72 justify-center my-5 relative">
+                <div class="flex flex-col rounded-md border border-slate-200 h-auto justify-center my-5 relative">
 
-                    <div class="h-full sm:mt-5 flex flex-col space-y-4 px-24">
+                    <div class="w-full h-full sm:mt-5 flex flex-col space-y-4 px-4 sm:px-8 md:px-16 lg:px-24">
                         <div class="flex justify-between items-center">
                             <div class="text-slate-900 text-2xl font-bold" id="divNumerarCurso"></div>
                         </div>
 
                         <!-- SIGLA -->
-                        <h1 id="tfSigla" class="text-2xl font-semibold text-slate-800">
-                          
+                        <h1 id="tfSigla" class="text-xl sm:text-2xl font-semibold text-slate-800">
                         </h1>
 
                         <!-- NOME -->
-                        <h2 id="tfNome" class="text-3xl font-semibold text-black">
+                        <h2 id="tfNome" class="text-2xl sm:text-3xl font-semibold text-black">
                             Desenvolvimento Web Moderno
                         </h2>
 
@@ -108,7 +108,7 @@
                         </p>
 
                         <!-- CATEGORIA E CARGA -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div class="flex items-center">
                                 <i class="fas fa-clock text-gray-400 mr-3 text-lg"></i>
                                 <div>
@@ -116,7 +116,7 @@
                                     <div id="tfCargaHoraria" class="font-medium">...</div>
                                 </div>
                             </div>
-                            
+
                             <div class="flex items-center">
                                 <i class="fas fa-layer-group text-gray-400 mr-3 text-lg"></i>
                                 <div>
@@ -125,31 +125,28 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <div id="divPaginacao" class="flex w-full mb-5 justify-center items-center gap-2"></div>
 
+                    <div id="divPaginacao" class="flex w-full my-3 sm:mb-5 justify-center items-center gap-2"></div>
 
-                    <div id="divNavegacao" class="absolute flex top-20 px-2 items-center justify-between w-full py-10">
-                        <button id="btAnterior"
-                            class="text-black border border-slate-200 text-sm rounded-full px-2 py-2">
-                           <svg xmlns="http://www.w3.org/2000/svg" 
-                                fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                    <div id="divNavegacao"
+                        class="absolute flex top-16 sm:top-20 px-2 items-center justify-between w-full py-6 sm:py-10">
+                        <button id="btAnterior" class="text-black border border-slate-200 text-sm rounded-full p-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-5 h-5 sm:w-6 sm:h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                             </svg>
-
                         </button>
-                            <button id="btProximo" class="text-black border border-slate-200 text-sm rounded-full px-2 py-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" 
-                                    fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                    class="w-6 h-6">
+                        <button id="btProximo" class="text-black border border-slate-200 text-sm rounded-full p-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-5 h-5 sm:w-6 sm:h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                                </svg>
-                            </button>
-                        </div>
+                            </svg>
+                        </button>
+                    </div>
 
                 </div>
+
                 <!-- HERO DA PÁGINA -->
 
 
@@ -262,11 +259,11 @@
                     </h2>
                 </div>
 
-                    <h1 class="text-3xl text-slate-900">Nenhuma Matrícula efetuada...</h1>
+                <h1 class="text-3xl text-slate-900">Nenhuma Matrícula efetuada...</h1>
 
-                </div>
             </div>
-        </section>
+    </div>
+    </section>
 
 
 
@@ -280,8 +277,8 @@
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-slate-800">
             <!-- Logo / Nome do Projeto -->
             <div>
-                <h2 class="text-xl font-bold mb-2">Firebase Dashboard</h2>
-                <p class="text-sm text-slate-700">Uma plataforma intuitiva para gestão de cursos e usuários.</p>
+                <h2 class="text-xl font-bold mb-2">Plataforma Educa+ Cursos</h2>
+                <p class="text-sm text-slate-700">Aprenda de forma simples, rápida e intuitiva.</p>
             </div>
 
             <!-- Links de Navegação -->
@@ -310,7 +307,7 @@
         </div>
         <div class="border-t border-slate-200 mt-28"></div>
         <div class="mt-5 pt-4 text-start text-sm text-slate-600">
-            © 2025 PROJETO FAETERJ 2025. Todos os direitos reservados vtwave.
+            © 2025 PROJETO FAETERJ 2025. Todos os direitos reservados.
         </div>
     </footer>
 
