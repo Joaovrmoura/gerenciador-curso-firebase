@@ -71,7 +71,6 @@ export default class CtrlManterCursos {
       if(this.#posAtual > 1) this.#posAtual--     
       this.#atualizarContextoNavegacao()  
   }
-
   
   //-----------------------------------------------------------------------------------------//
 
@@ -88,7 +87,6 @@ export default class CtrlManterCursos {
     this.efetivar = this.incluir;
   }
   
-    
   //-----------------------------------------------------------------------------------------//
   
   iniciarAlterar() {
@@ -113,8 +111,7 @@ export default class CtrlManterCursos {
 
   async incluir(sigla, nome, descricao, cargaHoraria, categoria, instrutorEmail) {
     try {
-      console.log(cargaHoraria);
-      
+
       const instrutorExiste = await this.#daoInstrutor.obterInstrutorPeloEmail(instrutorEmail)
       
       if(instrutorExiste == null){
@@ -126,9 +123,9 @@ export default class CtrlManterCursos {
       
       if(!cursoExiste){
         const curso = new Curso(sigla, nome, descricao, cargaHoraria, categoria, instrutor)
-        const addCurso = await this.#daoCurso.incluir(curso)
+        const cursoAdicionado = await this.#daoCurso.incluir(curso)
         
-        if(addCurso){
+        if(cursoAdicionado){
           alert('Curso criado com sucesso!')
           this.#atualizarContextoNavegacao()
         }

@@ -39,7 +39,7 @@ export default class CtrlEfetuarLogin {
 
         // Verificando se o usuário já verificou o seu email. Se não, não continuo o processo de autenticação
         if (!usr.emailVerified) {
-          alert("Email não verificado. Veja sua caixa e confirme sua conta.");
+          this.#viewer.mostrarMenssagem("Email não verificado. Veja sua caixa e confirme sua conta.")
           return;
         }
       
@@ -49,29 +49,30 @@ export default class CtrlEfetuarLogin {
       
         if(objUsuario.getFuncao() == 'ALUNO') {
           // O usuário está com a conta verificada e redireciona para a página inicio.html
-          window.location.href = "../paginas/initAluno.html";
+          window.location.href = "../docs/initAluno.html";
         } else if(objUsuario.getFuncao() == 'ADMIN') {
           // O usuário está com a conta verificada e redireciona para a página inicio.html
-          window.location.href = "../paginas/initAdmin.html";
+          window.location.href = "../docs/initAdmin.html";
 
         }else if(objUsuario.getFuncao() == 'INSTRUTOR'){
             console.log(objUsuario.getFuncao());
-           window.location.href = "../paginas/initInstrutor.html";
+           window.location.href = "../docs/initInstrutor.html";
         }
     })
     // Se a Promise foi "rejected", então a função vinculada ao método 'catch' começa a ser executada
     .catch((error) => {
       var errorCode = error.code;
       var errorMessage = error.message;
-      alert("Erro: " + errorCode + "-" + errorMessage);
+      // alert("Erro: " + errorCode + "-" + errorMessage);
       console.log("#------->" + errorMessage + " " + errorCode);
+       this.#viewer.mostrarMenssagem(errorCode)
     });
   }
 
   //----------------------------------------------------------------------//
 
   irParaCriarConta() {
-    window.location.href = "paginas/novaconta.html";
+    window.location.href = "docs/novaconta.html";
   }
 }
 

@@ -17,6 +17,9 @@ import {
 
 import Aula from "../Aula.js";
 import ModelError from "../error/ModelError.js";
+import Instrutor from "../Instrutor.js";
+import Curso from "../Curso.js";
+import CursoDAO from "./CursoDAO.js";
 
 class AulaDAO {
 
@@ -51,60 +54,23 @@ class AulaDAO {
     }
     return AulaDAO.promessaConexao;
   }
-  //-----------------------------------------------------------------------------------------//
-  
-  async obterAulasPelaSiglaDoCurso(sigla) {
-    // Recuperando a conexão com o Realtime Database
-    let connectionDB = await this.obterConexao();      
-    // Retornamos uma Promise que nos dará o resultado
-    return new Promise((resolve) => {
-      // Declaramos uma variável que referenciará o array com os objetor Curso
-      let conjAulas = [];      
-      // Definindo uma 'ref' para o objeto no banco de dados      
-      let dbRefAulas = ref(connectionDB,'aulas/' + sigla);
-      // Executo a query a partir da 'ref' definida
-      let consulta = query(dbRefAulas);
-      // Recupero a Promise com o resultado obtido
-      let resultPromise = get(consulta);
-      // Com o resultado, vamos montar o array de resposta
-      resultPromise.then(dataSnapshot => {
-        let tamanho = dataSnapshot.length;
-        // Para cada objeto presente no resultado
 
-        dataSnapshot.forEach((dataSnapshotObj,index) => {
-          // Recupero o objeto com val()
-          let elem = dataSnapshotObj.val();
-          
-          // Instancio um objeto Curso e o coloco no array de resposta      
-          conjAulas.push(elem);
-          
-          // Se é o último objeto a retornar
-          if(index == tamanho - 1)
-            resolve(conjAulas);          
-        });
-        // Ao final do 'forEach', coloco o array como resolve da Promise a ser retornada
-        resolve(conjAulas);
-      }).catch((e) => { console.log("#ERRO: " + e); resolve([])});
-    });
-  }
+ //-----------------------------------------------------------------------------------------//
 
-  //-----------------------------------------------------------------------------------------//
-  
   async incluir(aula) {
     // Recuperando a conexão com o Realtime Database
     let connectionDB = await this.obterConexao();    
     return new Promise((resolve, reject) => {
       // Referência para a raiz de 'aulas'
       let dbRefAulas = ref(connectionDB, 'aulas');
-      console.log(aula);
       
       // Inicia uma transação na raiz 'aulas'
       runTransaction(dbRefAulas, (aulas) => {
         // Monta o child 'aulas/$siglaCurso/$numOrdem'
         let dbRefNovaAula = child(dbRefAulas, `${aula.curso.getSigla()}/${aula.getNumOrdem()}`);
-
+        const conteudo = aula.getConteudo();
         // Inclui ou atualiza a aula usando 'set'
-        let setPromise = set(dbRefNovaAula,  {conteudo: aula.getConteudo()});
+        let setPromise = set(dbRefNovaAula, { conteudo });
         
         // Define o resultado da operação
         setPromise
@@ -116,6 +82,36 @@ class AulaDAO {
   
   //-----------------------------------------------------------------------------------------//
 
+  async obterAulasPelaSiglaDoCurso(sigla) {
+    let connectionDB = await this.obterConexao();   
+    return new Promise(async (resolve) => {
+      let conjAulas = [];      
+      let dbRefAulas = ref(connectionDB, 'aulas/' + sigla);
+      let consulta = query(dbRefAulas);
+      let resultPromise = get(consulta);
+
+      const daoCurso = new CursoDAO();
+      const curso = await daoCurso.obterCursoPelaSigla(sigla);
+      const instrutor = await curso.getInstrutor();
+
+      resultPromise.then(dataSnapshot => {
+        dataSnapshot.forEach(dataSnapshotObj => {
+          let elem = dataSnapshotObj.val();
+          let numOrdem = parseInt(dataSnapshotObj.key);
+          // console.log(elem);
+          
+          conjAulas.push(new Aula(numOrdem, elem.conteudo, curso, instrutor));
+        });
+        resolve(conjAulas);
+      }).catch((e) => { 
+        console.log("#ERRO: " + e); 
+        resolve([]); 
+      });
+    });
+  }
+
+  //-----------------------------------------------------------------------------------------//
+  
   async alterar(aula) {
     // Recuperando a conexão com o Realtime Database
     let connectionDB = await this.obterConexao();    
@@ -165,8 +161,8 @@ class AulaDAO {
       });
     });
   }
+  
   //-----------------------------------------------------------------------------------------//
-
 
 }
 

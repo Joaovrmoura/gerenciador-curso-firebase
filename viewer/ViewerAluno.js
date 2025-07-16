@@ -69,12 +69,6 @@ export default class ViewerAluno  {
 
   //------------------------------------------------------------------------//
 
-  statusApresentacao() {
-    
-  }
-
-  //------------------------------------------------------------------------//
-
   limparCampos() {
     this.tfSigla.textContent = ""
     this.tfNome.textContent = ""
@@ -97,7 +91,7 @@ export default class ViewerAluno  {
 
     } else {
 
-      this.tfSigla.textContent = curso.getSigla()
+      // this.tfSigla.textContent = curso.getSigla()
       this.tfNome.textContent = curso.getNome()
       this.tfDescricao.textContent = curso.getDescricao()
       this.tfCargaHoraria.textContent = curso.getCargaHoraria()
@@ -138,7 +132,7 @@ export default class ViewerAluno  {
                 <span class="font-semibold text-gray-900">Carga Horária:</span> ${curso.getCargaHoraria()}
               </p>
 
-              <button class="py-1 px-2 mt-5 bg-black text-white mb-5">Inscrever-se</button>
+              <button class="py-1 px-2 mt-5 bg-black rounded-md text-white mb-5">Inscrever-se</button>
 
              </div>
           </div>`;

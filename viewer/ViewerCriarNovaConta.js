@@ -18,7 +18,8 @@ export default class ViewerCriarNovaConta {
     this.tfTelefone = this.obterElemento("tfTelefone");
     this.btNovaConta = this.obterElemento("btNovaConta");
     this.cbFuncao = this.obterElemento("cbFuncao"); // Remove if not in HTML
-
+    this.menssagemDeErro = this.obterElemento('menssagemDeErro')
+    
     // Bind context for methods
     this.btNovaConta.onclick = fnNovaConta;
     
@@ -54,6 +55,16 @@ export default class ViewerCriarNovaConta {
   }
 
   //------------------------------------------------------------------------//
+
+  mostrarMenssagem(menssagem){
+    this.menssagemDeErro.innerHTML = menssagem
+    setTimeout(() => {
+      this.menssagemDeErro.innerHTML = ""
+    }, 3000)
+  }
+
+  //------------------------------------------------------------------------//
+
 
   voltar() {
     window.history.go(-1);

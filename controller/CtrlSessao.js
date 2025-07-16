@@ -79,7 +79,7 @@ export default class CtrlSessao {
           }
         } else {
           reject('Você não realizou a autenticação via Google');
-          window.location.href = 'paginas/login.html'
+          window.location.href = 'login.html'
         }
       });
     });

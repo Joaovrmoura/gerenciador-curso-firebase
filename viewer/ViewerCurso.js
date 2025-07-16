@@ -70,7 +70,6 @@ export default class ViewerCurso  {
     }
   }
 
-
   //------------------------------------------------------------------------//
 
   atualizarPaginacao(qtdTotalCursos, posicaoAtual) {
@@ -87,7 +86,6 @@ export default class ViewerCurso  {
   }
 
   //------------------------------------------------------------------------//
-
 
   statusEdicao(status) {
     
@@ -220,10 +218,6 @@ export default class ViewerCurso  {
   //------------------------------------------------------------------------//
 
   async renderizarCursos(cursos){
-    console.log(cursos);
-    
-    console.log(typeof cursos, cursos == null);
-    
     this.divMostrarCursos.innerHTML = "";
 
    if(cursos == null){

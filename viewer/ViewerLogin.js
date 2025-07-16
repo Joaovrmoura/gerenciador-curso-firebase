@@ -8,6 +8,7 @@ export default class ViewerLogin {
     this.tfEmail = this.obterElemento("tfEmail");
     this.tfSenha = this.obterElemento("tfSenha");
     this.btEntrar = this.obterElemento("btEntrar");
+    this.menssagemDeErro = this.obterElemento('menssagemDeErro')
 
     this.btEntrar.onclick = btLoginCallback;
   }
@@ -23,6 +24,12 @@ export default class ViewerLogin {
     return elemento;
   }
   
+  mostrarMenssagem(menssagem){
+    this.menssagemDeErro.innerHTML = menssagem
+    setTimeout(() => {
+      this.menssagemDeErro.innerHTML = ""
+    }, 3000)
+  }
 
   getCtrl() {
     return this.#ctrl;

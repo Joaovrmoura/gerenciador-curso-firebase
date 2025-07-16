@@ -36,8 +36,6 @@ export default class CtrlManterAlunos {
   // falta implementar uma lógica melhor
   async #atualizarContextoNavegacao() {
     this.#viewer.statusEdicao(Status.NAVEGANDO); 
-    // Determina ao viewer que ele está apresentando ds dado 
-    this.#viewer.statusApresentacao();
     
     this.#viewer.exibirUsuario(this.#usuarioLogado.email)
     let conjCursos = await this.#daoCurso.obterCursos();

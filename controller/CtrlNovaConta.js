@@ -64,7 +64,7 @@ export default class CtrlCriarNovaConta {
       .catch(error => {
         let errorCode = error.code;
         let errorMessage = error.message;
-        alert("Erro na criação da conta: " + errorCode + " - " + errorMessage);
+        this.#viewer.mostrarMenssagem("Erro ao criar conta! Verifique os campos e tente novamente")
       });
   }
 
