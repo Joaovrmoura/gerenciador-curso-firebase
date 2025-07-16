@@ -1,5 +1,9 @@
 import ViewerError from "./ViewerError.js";
 
+//---- Importando as funções associadas à autenticação (Versão 10.9.0 do Firebase) ----//
+import { RecaptchaVerifier } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+//------------------------------------------------------------------------//
+
 export default class ViewerLogin {
   #ctrl;
 
@@ -11,6 +15,16 @@ export default class ViewerLogin {
     this.menssagemDeErro = this.obterElemento('menssagemDeErro')
 
     this.btEntrar.onclick = btLoginCallback;
+
+    window.recaptchaVerifier = new RecaptchaVerifier(
+        ctrl.getAuth(),
+        "recaptcha-container",
+        {}
+      );
+  
+      window.recaptchaVerifier.render().then(function (widgetId) {
+        window.recaptchaWidgetId = widgetId;
+      });
   }
 
   

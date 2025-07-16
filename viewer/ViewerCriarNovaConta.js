@@ -1,7 +1,7 @@
 import ViewerError from "./ViewerError.js";
 
 //---- Importando as funções associadas à autenticação (Versão 10.9.0 do Firebase) ----//
-import { RecaptchaVerifier } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-auth.js";
+import { RecaptchaVerifier } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
 //------------------------------------------------------------------------//
 
 export default class ViewerCriarNovaConta {
@@ -19,20 +19,20 @@ export default class ViewerCriarNovaConta {
     this.btNovaConta = this.obterElemento("btNovaConta");
     this.cbFuncao = this.obterElemento("cbFuncao"); // Remove if not in HTML
     this.menssagemDeErro = this.obterElemento('menssagemDeErro')
-    
+
     // Bind context for methods
     this.btNovaConta.onclick = fnNovaConta;
     
-    //   // Recaptcha
-    // window.recaptchaVerifier = new RecaptchaVerifier(
-    //   ctrl.getAuth(),
-    //   "recaptcha-container",
-    //   {}
-    // );
+      // Recaptcha
+    window.recaptchaVerifier = new RecaptchaVerifier(
+      ctrl.getAuth(),
+      "recaptcha-container",
+      {}
+    );
 
-    // window.recaptchaVerifier.render().then(function (widgetId) {
-    //   window.recaptchaWidgetId = widgetId;
-    // });
+    window.recaptchaVerifier.render().then(function (widgetId) {
+      window.recaptchaWidgetId = widgetId;
+    });
 
   }
 

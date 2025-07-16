@@ -22,6 +22,13 @@ export default class CtrlEfetuarLogin {
     this.#auth = getAuth(app);
     this.#viewer = new ViewerEfetuarLogin(this);
   }
+
+  
+  //----------------------------------------------------------------------//
+  
+  getAuth() {
+    return this.#auth;
+  }
   
   //----------------------------------------------------------------------//
 
