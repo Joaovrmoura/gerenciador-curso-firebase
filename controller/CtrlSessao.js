@@ -10,7 +10,7 @@ from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
 // import CtrlManterCursos from "/controller/CtrlManterCursos.js";
 
 import DaoUsuario from "../model/DAO/UsuarioDAO.js";
-import Usuario from "/model/Usuario.js";
+import Usuario from "../model/Usuario.js";
 import CtrlManterCursos from "./CtrlManterCurso.js";
 import CtrlManterInstrutores from "./CtrlManterInstrutor.js";
 import CtrlManterAlunos from "./CtrlManterAluno.js";
