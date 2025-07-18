@@ -60,8 +60,8 @@ export default class CtrlManterCursos {
   //-----------------------------------------------------------------------------------------//
   
   async apresentarProximo(){
-    let conjAlunos = await this.#daoCurso.obterCursos()
-    if(this.#posAtual < conjAlunos.length) this.#posAtual++ 
+    let conjCursos = await this.#daoCurso.obterCursos()
+    if(this.#posAtual < conjCursos.length) this.#posAtual++ 
     this.#atualizarContextoNavegacao()  
   }
   
@@ -90,7 +90,7 @@ export default class CtrlManterCursos {
   //-----------------------------------------------------------------------------------------//
   
   iniciarAlterar() {
-    this.status = Status.ALTERANDO;
+    this.#status = Status.ALTERANDO;
     this.#viewer.statusEdicao(Status.ALTERANDO); 
     
     this.efetivar = this.alterar;
@@ -110,96 +110,102 @@ export default class CtrlManterCursos {
 
 
   async incluir(sigla, nome, descricao, cargaHoraria, categoria, instrutorEmail) {
-    try {
 
-      const instrutorExiste = await this.#daoInstrutor.obterInstrutorPeloEmail(instrutorEmail)
-      
-      if(instrutorExiste == null){
-        alert('Instrutor não encontrado!')
-        return;
-      }
-      const instrutor = new Instrutor(instrutorExiste.nome, instrutorExiste.email, instrutorExiste.fone)
-      const cursoExiste = await this.#daoCurso.obterCursoPelaSigla(sigla)
-      
-      if(!cursoExiste){
-        const curso = new Curso(sigla, nome, descricao, cargaHoraria, categoria, instrutor)
-        const cursoAdicionado = await this.#daoCurso.incluir(curso)
+    if(this.#status == Status.INCLUINDO){
+      try {
+        const instrutorExiste = await this.#daoInstrutor.obterInstrutorPeloEmail(instrutorEmail)
         
-        if(cursoAdicionado){
-          alert('Curso criado com sucesso!')
-          this.#atualizarContextoNavegacao()
+        if(instrutorExiste == null){
+          alert('Instrutor não encontrado!')
+          return;
         }
-      }else{
-        alert('Curso com essa sigla já existe! ')
+        const instrutor = new Instrutor(instrutorExiste.nome, instrutorExiste.email, instrutorExiste.fone)
+        const cursoExiste = await this.#daoCurso.obterCursoPelaSigla(sigla)
+        
+        if(!cursoExiste){
+          const curso = new Curso(sigla, nome, descricao, cargaHoraria, categoria, instrutor)
+          const cursoAdicionado = await this.#daoCurso.incluir(curso)
+          
+          if(cursoAdicionado){
+            alert('Curso criado com sucesso!')
+            this.#atualizarContextoNavegacao()
+          }else {
+            alert('Falha ao criar o curso!');
+          }
+
+        }else{
+          alert('Curso com a sigla ' + sigla + ' já existe! ')
+        }
+        
+      } catch (error) { 
+        alert("Erro: " + error);
       }
-      
-    } catch (error) { 
-      alert("Erro: " + error);
+
     }
   }
 
   //-----------------------------------------------------------------------------------------//
 
   async alterar(sigla, nome, descricao, cargaHoraria, categoria, instrutorEmail) {
-    try {
-      const instrutorExiste = await this.#daoInstrutor.obterInstrutorPeloEmail(instrutorEmail)
-      
-      if(instrutorExiste == null){
-        alert('Instrutor não encontrado!')
-          return;
-      }
-      const instrutor = new Instrutor(instrutorExiste.nome, instrutorExiste.email, instrutorExiste.fone)
-      const cursoExiste = await this.#daoCurso.obterCursoPelaSigla(sigla)
-      
-      if(cursoExiste){
-        const curso = new Curso(sigla, nome, descricao, cargaHoraria, categoria, instrutor)
-        const cursoAlterado = await this.#daoCurso.alterar(curso)
+    if(this.#status == Status.ALTERANDO){
+      try {
+        const instrutorExiste = await this.#daoInstrutor.obterInstrutorPeloEmail(instrutorEmail)
         
-        if(cursoAlterado){
-          alert('Curso Alterado com sucesso!')
+        if(instrutorExiste == null){
+          alert('Instrutor não encontrado!')
+            return;
         }
-
-      }else{
-        alert('Curso não encontrado')
-      }
-
-      this.#atualizarContextoNavegacao()
-      
-    } catch (error) { 
-      alert("Erro: " + error);
+        const instrutor = new Instrutor(instrutorExiste.nome, instrutorExiste.email, instrutorExiste.fone)
+        const curso = await this.#daoCurso.obterCursoPelaSigla(sigla)
+        
+        if(curso){
+          curso.setNome(nome)
+          curso.setDescricao(descricao)
+          curso.setCargaHoraria(cargaHoraria)
+          curso.setCategoria(categoria)
+          curso.setInstrutor(instrutor)
+          
+          const cursoAlterado = await this.#daoCurso.alterar(curso)
+          
+        if(cursoAlterado === true){
+          alert('Curso alterado com sucesso!');
+        } else {
+          alert('Falha ao alterar o curso!');
+        }
+          
+        }else{
+          alert('Curso não encontrado')
+        }
+  
+        this.#atualizarContextoNavegacao()
+        
+      } catch (error) { 
+        alert("Erro: " + error);
+      } 
     }
   }
 
   //-----------------------------------------------------------------------------------------//
 
-  async excluir(sigla, nome, descricao, cargaHoraria, categoria, instrutorEmail) {
-    try {
-      console.log('excluindo... ' + sigla, instrutorEmail);
+  async excluir(sigla) {
+    if(this.#status == Status.EXCLUINDO){
+      try {
+        const curso = await this.#daoCurso.obterCursoPelaSigla(sigla)
       
-      const instrutorExiste = await this.#daoInstrutor.obterInstrutorPeloEmail(instrutorEmail)
-      
-      if(instrutorExiste == null){
-        alert('Instrutor não encontrado!')
-        return;
-      }
-      const instrutor = new Instrutor(instrutorExiste.nome, instrutorExiste.email, instrutorExiste.fone)
-      const cursoExiste = await this.#daoCurso.obterCursoPelaSigla(sigla)
-      
-      if(cursoExiste){
-        const curso = new Curso(sigla, nome, descricao, cargaHoraria, categoria, instrutor)
-        const cursoExcluido = await this.#daoCurso.excluir(curso)
-        
-        if(cursoExcluido){
-          alert('Curso Excluido com sucesso!')
-          this.#atualizarContextoNavegacao()
+        if(curso){
+          const cursoExcluido = await this.#daoCurso.excluir(curso)
+          if(cursoExcluido){
+            alert('Curso Excluido com sucesso!')
+          }
+        }else{
+          alert('Este curso não existe!')
         }
-      }else{
-        alert('Este curso a não existe!')
+
+        this.#atualizarContextoNavegacao()
+        
+      } catch (error) { 
+        alert("Erro: " + error);
       }
-     
-      
-    } catch (error) { 
-      alert("Erro: " + error);
     }
   }
 

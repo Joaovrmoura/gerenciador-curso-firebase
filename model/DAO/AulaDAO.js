@@ -82,6 +82,39 @@ class AulaDAO {
   
   //-----------------------------------------------------------------------------------------//
 
+  async obterAulaPeloNumOrdem(sigla, numOrdem) {
+    console.log("SIGLA:", sigla); 
+    console.log("numOrdem:", numOrdem);
+    console.log("Caminho:", 'aulas/' + sigla + '/' + String(numOrdem));
+
+    let connectionDB = await this.obterConexao();   
+    return new Promise(async (resolve) => {
+      let dbRefAula = ref(connectionDB, 'aulas/' + sigla + '/' + String(numOrdem));
+      let consulta = query(dbRefAula);
+      let resultPromise = get(consulta);
+
+      const daoCurso = new CursoDAO();
+      const curso = await daoCurso.obterCursoPelaSigla(sigla);
+      const instrutor = await curso.getInstrutor();
+
+      resultPromise.then(dataSnapshot => {
+        if (dataSnapshot.exists()) {
+          let elem = dataSnapshot.val();
+          let aula = new Aula(parseInt(numOrdem), elem.conteudo, curso, instrutor);
+          resolve(aula);
+        } else {
+          resolve(null); // não encontrou a aula
+        }
+      }).catch((e) => { 
+        console.log("#ERRO: " + e); 
+        resolve(null); 
+      });
+    });
+  }
+
+  //-----------------------------------------------------------------------------------------//
+
+
   async obterAulasPelaSiglaDoCurso(sigla) {
     let connectionDB = await this.obterConexao();   
     return new Promise(async (resolve) => {
@@ -92,6 +125,12 @@ class AulaDAO {
 
       const daoCurso = new CursoDAO();
       const curso = await daoCurso.obterCursoPelaSigla(sigla);
+
+      if (!curso) {
+        console.log(`Curso não encontrado para sigla: ${sigla}`);
+        resolve([]); 
+        return;
+      }
       const instrutor = await curso.getInstrutor();
 
       resultPromise.then(dataSnapshot => {

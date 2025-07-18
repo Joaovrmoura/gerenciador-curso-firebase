@@ -45,7 +45,6 @@ export default class CtrlSessao {
 
       else if(document.URL.includes("initAluno.html")) {
         // falta o CTRL do aluno
-        // ainda to fzd
         this.ctrlAtual = new CtrlManterAlunos(this.usuario)
       }
 

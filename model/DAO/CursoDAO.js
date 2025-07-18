@@ -216,8 +216,8 @@ export default class CursoDAO {
     // return resultado;
   }
   //-----------------------------------------------------------------------------------------//
-
-
+  
+  
   async alterar(curso) {
     let connectionDB = await this.obterConexao();
     let daoUsuario = new DaoUsuario();
@@ -228,37 +228,72 @@ export default class CursoDAO {
         let dbRefCursoAlterado = child(dbRefCursos, curso.getSigla());
         let setPromise = set(dbRefCursoAlterado, {...curso, instrutor: usr.uid});
         setPromise
-          .then(value => {
+        .then(value => {
             resolve(true);
           })
           .catch(e => {
             console.log("#ERRO: " + e);
             resolve(false);
           });
+        });
       });
-    });
-    // return resultado;
-  }
-
-  // Não incluso no MdC
+      // return resultado;
+    }
+    
+    //-----------------------------------------------------------------------------------------//
+    
+    
+    // Não incluso no MdC
+    // async excluir(curso) {
+      //   let connectionDB = await this.obterConexao();
+      //   return new Promise((resolve, reject) => {
+        //     let dbRefCursos = ref(connectionDB, "cursos");
+        //     runTransaction(dbRefCursos, cursos => {
+          //       let dbRefExcluirCurso = child(dbRefCursos, curso.getSigla());
+          //       let setPromise = remove(dbRefExcluirCurso, curso);
+          //       setPromise
+          //         .then(value => {
+            //           resolve(true);
+            //         })
+            //         .catch(e => {
+              //           console.log("#ERRO: " + e);
+              //           resolve(false);
+              //         });
+              //     });
+              //   });
+              //   // return resultado;
+              // }
+              // 
+              // 
+              //               
+  //-----------------------------------------------------------------------------------------//
+    
   async excluir(curso) {
     let connectionDB = await this.obterConexao();
     return new Promise((resolve, reject) => {
       let dbRefCursos = ref(connectionDB, "cursos");
       runTransaction(dbRefCursos, cursos => {
+        // Remove o curso
         let dbRefExcluirCurso = child(dbRefCursos, curso.getSigla());
-        let setPromise = remove(dbRefExcluirCurso, curso);
-        setPromise
-          .then(value => {
-            resolve(true);
-          })
-          .catch(e => {
-            console.log("#ERRO: " + e);
-            resolve(false);
-          });
+        let setPromiseCurso = remove(dbRefExcluirCurso);
+      
+      // Remove as aulas do curso
+      let dbRefAulas = ref(connectionDB, "aulas");
+      let dbRefExcluirAulas = child(dbRefAulas, curso.getSigla());
+      let setPromiseAulas = remove(dbRefExcluirAulas);
+      
+      // Executa as duas remoções em paralelo
+      Promise.all([setPromiseCurso, setPromiseAulas])
+        .then(values => {
+          resolve(true);
+        })
+        .catch(e => {
+          console.log("#ERRO: " + e);
+          resolve(false);
+        });
       });
     });
-    // return resultado;
   }
+//-----------------------------------------------------------------------------------------//
 }
 

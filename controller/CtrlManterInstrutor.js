@@ -143,7 +143,7 @@ export default class CtrlManterInstrutores {
   //-----------------------------------------------------------------------------------------//
   
   iniciarAlterar() {
-    this.status = Status.ALTERANDO;
+    this.#status = Status.ALTERANDO;
     this.#viewer.statusEdicao(Status.ALTERANDO); 
     
     this.efetivar = this.alterar;
@@ -165,76 +165,68 @@ export default class CtrlManterInstrutores {
   
   //-----------------------------------------------------------------------------------------//
 
-  // numOrdem, conteudo, curso, instrutor
   async incluir(conteudo, siglaCurso) {
-    try {     
-      const cursoExiste = await this.#daoCurso.obterCursoPelaSigla(siglaCurso)
-      if(cursoExiste == null){
-        alert('Curso não encontrado!')
-        return;
-      }
+    if(this.#status == Status.INCLUINDO){
+      try { 
+        const curso = await this.#daoCurso.obterCursoPelaSigla(siglaCurso)
 
-      const instrutorExiste = await this.#daoInstrutor.obterInstrutorPeloUid(this.#usuarioLogado.uid)
-      if(instrutorExiste == null){
-        alert('Instrutor não encontrado!')
-        return;
-      }
+        if(curso == null){
+          alert('Curso não encontrado!')
+          this.#atualizarContextoNavegacao()
+          return;
+        }
 
-      const instrutor = new Instrutor(instrutorExiste.nome, instrutorExiste.email, instrutorExiste.fone)
-      const curso = new Curso(cursoExiste.sigla, cursoExiste.nome, cursoExiste.descricao, cursoExiste.cargaHoraria, cursoExiste.categoria, instrutor)
-      
-      const numOrdemAtual = await this.#daoAula.obterAulasPelaSiglaDoCurso(siglaCurso)
-      const aula = new Aula(parseInt(numOrdemAtual.length), conteudo, curso, instrutor)
-      const salvarAula = await this.#daoAula.incluir(aula)
+        const numOrdemAtual = await this.#daoAula.obterAulasPelaSiglaDoCurso(siglaCurso)
+        const instrutor = await curso.getInstrutor();
 
-      if(salvarAula){
-        alert("Aula salva com sucesso!")
-        this.#posAtualAulas++
+        // uso o length pois as aulas começam no indice 0
+        const aula = new Aula(parseInt(numOrdemAtual.length), conteudo, curso, instrutor)
+        const salvarAula = await this.#daoAula.incluir(aula)
+  
+        if(salvarAula){
+          alert("Aula salva com sucesso!")
+          this.#posAtualAulas++
+        }else{
+          alert("Aula não foi salva!")
+        }
+        
         this.#atualizarContextoNavegacao()
+  
+      } catch (error) { 
+        alert("Erro: " + error);
       }
-
-    } catch (error) { 
-      alert("Erro: " + error);
     }
   }
 
   //----------------------------------------------------------------------------------------//
 
   async alterar(conteudo, siglaCurso) {
-    try {     
-      const numOrdemAtual = this.#posAtualAulas;
-      const cursoExiste = await this.#daoCurso.obterCursoPelaSigla(siglaCurso)
-      
-      if(cursoExiste == null){
-        alert('Curso não encontrado!')
-        return;
-      }
-      
-      cursoExiste.instrutor = await cursoExiste.instrutor
-      console.log(cursoExiste.instrutor);
-      
-      const instrutorExiste = await this.#daoInstrutor.obterInstrutorPeloUid(this.#usuarioLogado.uid)
-      console.log(instrutorExiste);
-      
-      if(instrutorExiste == null){
-        alert('Instrutor não encontrado!')
-        return;
-      }
-      
-      const instrutor = new Instrutor(instrutorExiste.nome, instrutorExiste.email, instrutorExiste.fone)
-      const curso = new Curso(cursoExiste.sigla, cursoExiste.nome, cursoExiste.descricao, cursoExiste.cargaHoraria, cursoExiste.categoria, cursoExiste.instrutor)
-      const aula = new Aula(numOrdemAtual - 1, conteudo, curso, instrutor)
+    if(this.#status == Status.ALTERANDO){
+      try {     
 
-      const alterarAula = await this.#daoAula.alterar(aula)
+        if(this.#posAtualAulas === 0){
+          alert('Nenhuma aula encontrada!')
+          this.#atualizarContextoNavegacao()
+          return
+        }
+        const aula = await this.#daoAula.obterAulaPeloNumOrdem(siglaCurso, this.#posAtualAulas - 1)
         
-      if(alterarAula){
-        alert("Aula Alterada com sucesso!")
-        this.#atualizarContextoNavegacao()
-      }
+        if(aula){
+          aula.setConteudo(conteudo)
+          await this.#daoAula.alterar(aula)
+          alert("Aula Alterada com sucesso!")
 
-    } catch (error) { 
-      alert("Erro: " + error);
+        }else{
+          alert(`Aula número ${this.#posAtualAulas} não encontrada!`);
+        }
+
+        this.#atualizarContextoNavegacao()
+
+      } catch (error) { 
+        alert("Erro: " + error);
+      }
     }
+    
   }
 
   //-------------------------------------------------------------------------------------------//

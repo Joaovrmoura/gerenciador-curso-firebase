@@ -266,9 +266,19 @@ function fnBCancelar() {
 //------------------------------------------------------------------------//
 
 function fnBtOk() {
-  const sigla = this.viewer.divSigla.textContent
-  const conteudo = this.viewer.tfConteudo.value
-  
+  const sigla = this.viewer.divSigla.textContent.trim()
+  const conteudo = this.viewer.tfConteudo.value.trim()
+
+  if (!sigla && sigla.length != 3) {
+    alert("Sigla não pode estar vazia!");
+    return;
+  }
+
+  if (!conteudo) {
+    alert("Conteúdo não pode estar vazio!");
+    return;
+  }
+
   this.viewer.getCtrl().efetivar(conteudo, sigla)
 }
 
