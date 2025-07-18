@@ -57,11 +57,10 @@ export default class CtrlManterInstrutores {
 
       this.#viewer.apresentarCursos(null)
       this.#apresentarAulasDoCurso(null)
-      
     }else{
       if(this.#posAtualCurso == 0 || this.#posAtualCurso > conjCursos.length)
         this.#posAtualCurso = 1;
-      
+        
         this.#viewer.renderizarCursos(conjCursos)
         this.#apresentarAulasDoCurso(conjCursos[this.#posAtualCurso - 1].getSigla())
         this.#viewer.apresentarCursos(conjCursos.length, this.#posAtualCurso, new CursoDTO(conjCursos[this.#posAtualCurso - 1]))
@@ -72,9 +71,15 @@ export default class CtrlManterInstrutores {
 
   async #apresentarAulasDoCurso(sigla) {
 
+    if (sigla == null) {
+      this.#posAtualAulas = 0;
+      this.#viewer.apresentarAulas(0, 0, null);
+      return;
+    }
+    
     const conjAulas = await  this.#daoAula.obterAulasPelaSiglaDoCurso(sigla)
     
-    if (conjAulas.length == 0 || sigla == null) {
+    if (conjAulas.length == 0) {
       this.#posAtualAulas = 0;
       this.#viewer.apresentarAulas(0,0, null)
     } else {

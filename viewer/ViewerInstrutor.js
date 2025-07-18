@@ -270,7 +270,7 @@ function fnBtOk() {
   const conteudo = this.viewer.tfConteudo.value.trim()
 
   if (!sigla && sigla.length != 3) {
-    alert("Sigla não pode estar vazia!");
+    alert("Sigla não pode estar vazia! Verifique se existe algum curso!");
     return;
   }
 
