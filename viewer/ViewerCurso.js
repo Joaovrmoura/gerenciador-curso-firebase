@@ -172,11 +172,15 @@ export default class ViewerCurso  {
       console.log('Nenhum curso disponível.')
       this.divTotalCurso.textContent = 0
       this.limparCampos()
+      this.btAnterior.disabled = true
+      this.btProximo.disabled = true
       this.divNumerarCurso.textContent = 0
       this.#montarCbInstrutores("Selecione o instrutor")
 
     } else {
-
+      this.btAnterior.disabled = false
+      this.btProximo.disabled = false
+      
       if (curso.getInstrutor() instanceof Promise) {
         curso.instrutor = await curso.getInstrutor();
       }
